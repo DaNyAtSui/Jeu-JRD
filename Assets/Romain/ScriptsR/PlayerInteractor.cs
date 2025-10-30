@@ -1,15 +1,26 @@
 using UnityEngine;
 
-public class PlayerInteractor : MonoBehaviour
+public class PlayerInteractor2D : MonoBehaviour
 {
-    [HideInInspector] public InteractLight currentInteractZone;
+    private ToggleZone2D currentZone;
 
-    // Appelée automatiquement par le PlayerInput (Send Messages)
     void OnInteract()
     {
-        if (currentInteractZone != null)
-        {
-            currentInteractZone.OnInteract();
-        }
+        if (currentZone != null)
+            currentZone.ToggleObject();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        ToggleZone2D zone = other.GetComponent<ToggleZone2D>();
+        if (zone != null)
+            currentZone = zone;
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        ToggleZone2D zone = other.GetComponent<ToggleZone2D>();
+        if (zone != null && currentZone == zone)
+            currentZone = null;
     }
 }
