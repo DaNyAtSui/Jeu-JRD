@@ -9,7 +9,7 @@ public class ToggleZone2D : MonoBehaviour
     [Header("Texte d'interaction (TMP)")]
     public TMP_Text interactionText;
     [Tooltip("Texte affiché quand le joueur est dans la zone")]
-    public string message = "Appuyez sur E pour interagir";
+    public string message = "E pour interagir";
 
     private bool isActive = false;
 
