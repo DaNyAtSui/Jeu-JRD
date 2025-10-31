@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
 
-    private PlayerINputAct input; 
+    private PlayerINputAct input;
     private Vector2 moveInput;
     private Vector2 moveDir;
 
@@ -20,16 +20,14 @@ public class PlayerController : MonoBehaviour
     public float footstepInterval = 0.35f;
     public float pitchMin = 0.9f;
     public float pitchMax = 1.1f;
-
     private float footstepTimer;
 
     [Header("Psychological Audio Progression")]
-    [Range(0f, 1f)] public float echoStartChance = 0.02f; // chance au début
-    [Range(0f, 1f)] public float echoMaxChance = 0.12f;   // chance max plus tard
-    public float timeToMaxCreepiness = 240f; // 4 minutes pour atteindre le max
+    [Range(0f, 1f)] public float echoStartChance = 0.02f;
+    [Range(0f, 1f)] public float echoMaxChance = 0.12f;
+    public float timeToMaxCreepiness = 240f;
     private float creepinessLevel = 0f;
-
-    public AudioSource echoSource; // second AudioSource pour l’echo
+    public AudioSource echoSource;
 
     private void Awake()
     {
@@ -75,7 +73,6 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimations()
     {
         bool isWalking = moveInput.sqrMagnitude > 0.01f;
-
         animator.SetBool("IsWalking", isWalking);
         animator.SetFloat("MoveX", moveDir.x);
         animator.SetFloat("MoveY", moveDir.y);
@@ -105,12 +102,10 @@ public class PlayerController : MonoBehaviour
 
     private void PlayFootstep()
     {
-        // Son normal
         footstepSource.pitch = Random.Range(pitchMin, pitchMax);
         footstepSource.clip = footstepClips[Random.Range(0, footstepClips.Length)];
-        footstepSource.panStereo = Random.Range(-0.15f, 0.15f); // léger décalage gauche/droite
+        footstepSource.panStereo = Random.Range(-0.15f, 0.15f);
         footstepSource.Play();
-
         TryPlayEcho();
     }
 
@@ -124,7 +119,7 @@ public class PlayerController : MonoBehaviour
         {
             echoSource.pitch = Random.Range(0.85f, 1.05f);
             echoSource.clip = footstepClips[Random.Range(0, footstepClips.Length)];
-            echoSource.panStereo = Random.Range(-0.4f, 0.4f); // plus éloigné
+            echoSource.panStereo = Random.Range(-0.4f, 0.4f);
             echoSource.volume = 0.4f;
             echoSource.PlayDelayed(Random.Range(0.05f, 0.25f));
         }
