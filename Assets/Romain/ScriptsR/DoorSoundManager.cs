@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,32 +10,33 @@ public class DoorSoundManager : MonoBehaviour
     {
         public GameObject door;
         [HideInInspector] public bool lastActiveState;
+        [HideInInspector] public bool firstChangeIgnored; // empêche le son du démarrage
     }
 
     [Header("Portes à surveiller")]
     public List<DoorData> doors = new List<DoorData>();
 
     [Header("Sons à jouer")]
-    [Tooltip("Son joué quand la porte PASSE en inactive (SetActive(false)) donc quand elle s'ouvre visuellement")]
+    [Tooltip("Joué quand la porte devient inactive (SetActive(false)) → porte ouverte")]
     public AudioClip openSound;
 
-    [Tooltip("Son joué quand la porte PASSE en active (SetActive(true)) donc quand elle se ferme visuellement")]
+    [Tooltip("Joué quand la porte devient active (SetActive(true)) → porte fermée")]
     public AudioClip closeSound;
 
-    [Range(0f, 1f)]
-    public float volume = 1f;
+    [Range(0f, 1f)] public float volume = 1f;
 
-    private AudioSource audioSource;
+    private AudioSource source;
 
-    void Start()
+    void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
 
-        // On mémorise l'état de départ de chaque porte
+        // On enregistre l'état initial sans rien jouer
         foreach (var d in doors)
         {
-            if (d.door != null)
-                d.lastActiveState = d.door.activeSelf;
+            if (d.door == null) continue;
+            d.lastActiveState = d.door.activeSelf;
+            d.firstChangeIgnored = false;
         }
     }
 
@@ -42,38 +44,34 @@ public class DoorSoundManager : MonoBehaviour
     {
         foreach (var d in doors)
         {
-            if (d.door == null)
-                continue;
+            if (d.door == null) continue;
 
             bool currentState = d.door.activeSelf;
 
-            // L'état a changé depuis la dernière frame
             if (currentState != d.lastActiveState)
             {
-                // Ici on inverse :
-                // active == true  => porte "fermée" => son de fermeture
-                // active == false => porte "ouverte" => son d'ouverture
+                // Si c’est la première transition depuis le début, on l’ignore.
+                if (!d.firstChangeIgnored)
+                {
+                    d.firstChangeIgnored = true;
+                    d.lastActiveState = currentState;
+                    continue;
+                }
+
+                // Sinon on joue le bon son.
                 if (currentState)
-                {
-                    // vient de passer à active = true
-                    PlaySound(closeSound);
-                }
+                    Play(closeSound);   // porte fermée
                 else
-                {
-                    // vient de passer à active = false
-                    PlaySound(openSound);
-                }
+                    Play(openSound);    // porte ouverte
 
                 d.lastActiveState = currentState;
             }
         }
     }
 
-    private void PlaySound(AudioClip clip)
+    private void Play(AudioClip clip)
     {
-        if (clip == null || audioSource == null)
-            return;
-
-        audioSource.PlayOneShot(clip, volume);
+        if (clip == null || source == null) return;
+        source.PlayOneShot(clip, volume);
     }
 }
