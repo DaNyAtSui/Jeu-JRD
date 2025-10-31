@@ -12,7 +12,7 @@ public class ConditionalActivator : MonoBehaviour
 
     [Header("Action à effectuer")]
     public GameObject targetObject;
-    [Tooltip("True = activer l'objet cible quand la condition est remplie, False = le désactiver")]
+    [Tooltip("True = activer lobjet cible quand la condition est remplie, False = le désactiver")]
     public bool setTargetActive = false;
 
     [Header("État initial au démarrage")]
