@@ -22,17 +22,19 @@ public class ToggleZone2D : MonoBehaviour
         if (targetObject != null)
             targetObject.SetActive(isActive);
 
+        // Pré-chauffe le texte pour éviter le lag TMP
         if (interactionText != null)
-            interactionText.gameObject.SetActive(false);
+        {
+            interactionText.text = message;
+            interactionText.alpha = 0; // invisible mais actif
+            interactionText.gameObject.SetActive(true); // on l’active une bonne fois pour toutes
+        }
     }
 
     public void ShowText(bool show)
     {
         if (interactionText != null)
-        {
-            interactionText.text = show ? message : "";
-            interactionText.gameObject.SetActive(show);
-        }
+            interactionText.alpha = show ? 1 : 0;
     }
 
     public void ToggleObject()
@@ -44,7 +46,6 @@ public class ToggleZone2D : MonoBehaviour
         Debug.Log($"[ToggleZone2D] {targetObject.name} -> {isActive}");
     }
 
-    // Ces deux méthodes seront appelées depuis le player (par collision 2D)
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class DoorSoundManager : MonoBehaviour
     {
         public GameObject door;
         [HideInInspector] public bool lastActiveState;
-        [HideInInspector] public bool firstChangeIgnored; // empêche le son du démarrage
+        [HideInInspector] public bool initialized;
     }
 
     [Header("Portes à surveiller")]
@@ -31,40 +30,41 @@ public class DoorSoundManager : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
 
-        // On enregistre l'état initial sans rien jouer
+        // On enregistre les états actuels mais sans encore considérer la scène stable.
         foreach (var d in doors)
         {
             if (d.door == null) continue;
             d.lastActiveState = d.door.activeSelf;
-            d.firstChangeIgnored = false;
+            d.initialized = false;
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
+        // On attend une frame complète avant d’activer la détection
         foreach (var d in doors)
         {
             if (d.door == null) continue;
 
-            bool currentState = d.door.activeSelf;
+            bool current = d.door.activeSelf;
 
-            if (currentState != d.lastActiveState)
+            // Si pas encore initialisé, on fixe la référence sans jouer de son
+            if (!d.initialized)
             {
-                // Si c’est la première transition depuis le début, on l’ignore.
-                if (!d.firstChangeIgnored)
-                {
-                    d.firstChangeIgnored = true;
-                    d.lastActiveState = currentState;
-                    continue;
-                }
+                d.lastActiveState = current;
+                d.initialized = true;
+                continue;
+            }
 
-                // Sinon on joue le bon son.
-                if (currentState)
-                    Play(closeSound);   // porte fermée
+            // Après initialisation, on réagit normalement
+            if (current != d.lastActiveState)
+            {
+                if (current)
+                    Play(closeSound);   // active = fermée
                 else
-                    Play(openSound);    // porte ouverte
+                    Play(openSound);    // inactive = ouverte
 
-                d.lastActiveState = currentState;
+                d.lastActiveState = current;
             }
         }
     }
