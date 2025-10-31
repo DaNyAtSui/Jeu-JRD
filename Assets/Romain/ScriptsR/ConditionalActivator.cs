@@ -10,9 +10,10 @@ public class ConditionalActivator : MonoBehaviour
     [Tooltip("True = Tous doivent être actifs, False = Tous doivent être inactifs")]
     public bool requireAllActive = true;
 
-    [Header("Action à effectuer")]
-    public GameObject targetObject;
-    [Tooltip("True = activer lobjet cible quand la condition est remplie, False = le désactiver")]
+    [Header("Objets cibles à activer/désactiver")]
+    public List<GameObject> targetObjects = new List<GameObject>();
+
+    [Tooltip("True = activer les objets cibles quand la condition est remplie, False = les désactiver")]
     public bool setTargetActive = false;
 
     [Header("État initial au démarrage")]
@@ -23,9 +24,12 @@ public class ConditionalActivator : MonoBehaviour
 
     void Start()
     {
-        // Fixe l'état initial
-        if (targetObject != null)
-            targetObject.SetActive(initialActiveState);
+        // Fixe l'état initial pour tous les objets cibles
+        foreach (var target in targetObjects)
+        {
+            if (target != null)
+                target.SetActive(initialActiveState);
+        }
     }
 
     void Update()
@@ -37,11 +41,14 @@ public class ConditionalActivator : MonoBehaviour
         {
             lastConditionState = condition;
 
-            if (targetObject != null)
+            foreach (var target in targetObjects)
             {
-                // Si la condition est vraie → applique l’action prévue
-                // Si elle redevient fausse → restaure l’état initial
-                targetObject.SetActive(condition ? setTargetActive : initialActiveState);
+                if (target != null)
+                {
+                    // Si la condition est vraie → applique l’action prévue
+                    // Si elle redevient fausse → restaure l’état initial
+                    target.SetActive(condition ? setTargetActive : initialActiveState);
+                }
             }
         }
     }
