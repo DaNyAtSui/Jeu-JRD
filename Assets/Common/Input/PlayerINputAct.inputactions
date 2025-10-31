@@ -38,6 +38,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "03d792fa-f975-4c67-b36f-113881edac8f",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "2D Vector",
                     "id": "3172135e-7ac9-4204-9314-b164574f72cb",
                     "path": "2DVector",
@@ -146,6 +157,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2724f298-2376-4aa4-84c4-eaf9eee3e890",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
