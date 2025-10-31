@@ -1,26 +1,11 @@
+// 🛑 ASSUREZ-VOUS QUE LES LIGNES "enum Speaker" et "class DialogueLine" 
+// NE SONT PAS PRÉSENTES ICI 🛑
+
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic; // Nécessaire pour Queue
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
-// --- Les définitions n'ont pas changé ---
-public enum Speaker
-{
-    Player,
-    Entity,
-    Narrator
-}
-
-[System.Serializable]
-public class DialogueLine
-{
-    public Speaker speaker;
-    [TextArea(3, 5)]
-    public string sentence;
-}
-// -----------------------------------------
-
 
 public class DialogueManager : MonoBehaviour
 {
@@ -37,38 +22,40 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialogue Settings")]
     [SerializeField] private float typingSpeed = 0.05f;
-    [Tooltip("Temps (en secondes) pendant lequel la bulle de l'entité reste visible AVANT de passer à la suite.")]
     [SerializeField] private float entityDisplayTime = 5.0f;
 
-
-    // ====================================================================
-    // <-- CHANGEMENT ICI : LA LIGNE MANQUANTE A ÉTÉ RAJOUTÉE
-    // ====================================================================
-    [Header("Dialogue Content")]
-    [SerializeField] private DialogueLine[] currentConversation;
-    // ====================================================================
-
+    // === NOUVELLE LOGIQUE ===
+    // Notez qu'il n'y a PAS de [SerializeField] currentConversation
+    private Queue<DialogueLine> sentences;
 
     // === VARIABLES PRIVEES (Etat) ===
-    private int lineIndex;
     private Coroutine typingCoroutine;
 
     void Start()
     {
-        // On attache UNIQUEMENT le bouton du joueur
         if (playerContinueButton)
             playerContinueButton.onClick.AddListener(DisplayNextSentence);
 
-        // On cache tout au démarrage
+        // On prépare la file d'attente
+        sentences = new Queue<DialogueLine>();
+
+        playerDialogueBox.SetActive(false);
+        entityDialogueBox.SetActive(false);
+    }
+
+    // C'est la nouvelle fonction publique pour démarrer un dialogue
+    public void StartDialogue(Dialogue dialogue)
+    {
         playerDialogueBox.SetActive(false);
         entityDialogueBox.SetActive(false);
 
-        StartDialogue();
-    }
+        sentences.Clear();
 
-    public void StartDialogue()
-    {
-        lineIndex = 0;
+        foreach (DialogueLine line in dialogue.lines)
+        {
+            sentences.Enqueue(line);
+        }
+
         DisplayNextSentence();
     }
 
@@ -82,21 +69,18 @@ public class DialogueManager : MonoBehaviour
         playerContinueButton.gameObject.SetActive(false);
         entityContinueButton.gameObject.SetActive(false);
 
-        // Ligne 85 (ou proche) - elle fonctionnera maintenant
-        if (lineIndex >= currentConversation.Length)
+        if (sentences.Count == 0)
         {
             playerDialogueBox.SetActive(false);
             entityDialogueBox.SetActive(false);
             return;
         }
 
-        // Cette ligne fonctionnera aussi
-        DialogueLine line = currentConversation[lineIndex];
+        DialogueLine line = sentences.Dequeue();
         typingCoroutine = StartCoroutine(TypeSentence(line));
-        lineIndex++;
     }
 
-    // Coroutine (n'a pas changé)
+    // Cette coroutine n'a PAS changé
     private IEnumerator TypeSentence(DialogueLine line)
     {
         TextMeshProUGUI textComponent = null;

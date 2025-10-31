@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &36998564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36998566}
+  - component: {fileID: 36998565}
+  m_Layer: 0
+  m_Name: Trigger_Intro_Scene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &36998565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36998564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14a4d5564bf66b4ea15bea2ab360ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueManager: {fileID: 1666628018}
+  dialogue: {fileID: 11400000, guid: f991a35fd76ce1a439d2dd71a6d5a362, type: 2}
+--- !u!4 &36998566
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36998564}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.44189, y: -1.46964, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &56276688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,6 +1676,7 @@ GameObject:
   - component: {fileID: 649523991}
   - component: {fileID: 649523985}
   - component: {fileID: 649523992}
+  - component: {fileID: 649523993}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2023,6 +2070,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &649523993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649523982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 059f2f54f396168468c151829ad7af30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestDialogueKey
+  dialoguePourTester: {fileID: 36998565}
 --- !u!1 &683100957
 GameObject:
   m_ObjectHideFlags: 0
@@ -9430,17 +9490,6 @@ MonoBehaviour:
   entityContinueButton: {fileID: 2098520643}
   typingSpeed: 0.05
   entityDisplayTime: 3
-  currentConversation:
-  - speaker: 0
-    sentence: S'il vous plait!
-  - speaker: 0
-    sentence: "Je suis tomb\xE9 en panne devant votre maison!!"
-  - speaker: 0
-    sentence: J'ai besoin d'aide!!!
-  - speaker: 1
-    sentence: Entrez...
-  - speaker: 1
-    sentence: ...je suis ici...
 --- !u!4 &1666628019
 Transform:
   m_ObjectHideFlags: 0
@@ -22279,3 +22328,4 @@ SceneRoots:
   - {fileID: 323865020}
   - {fileID: 587708458}
   - {fileID: 1666628019}
+  - {fileID: 36998566}

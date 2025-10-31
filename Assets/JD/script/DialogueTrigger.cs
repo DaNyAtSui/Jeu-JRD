@@ -1,0 +1,40 @@
+using UnityEngine;
+
+public class DialogueTrigger : MonoBehaviour
+{
+    [Header("Références")]
+    [Tooltip("Le DialogueManager présent dans la scène")]
+    [SerializeField] private DialogueManager dialogueManager;
+
+    [Header("Dialogue à jouer")]
+    [Tooltip("L'asset de dialogue ('DVD') à charger")]
+    [SerializeField] private Dialogue dialogue;
+
+
+    // C'est la seule fonction dont nous avons besoin.
+    // D'autres scripts (événements, timelines, etc.) l'appelleront.
+    public void TriggerDialogue()
+    {
+        // Si le dialogueManager n'est pas assigné, on essaie de le trouver
+        if (dialogueManager == null)
+        {
+            dialogueManager = FindObjectOfType<DialogueManager>();
+        }
+        
+        // Sécurités
+        if (dialogueManager == null)
+        {
+            Debug.LogError("Aucun DialogueManager n'est assigné ou trouvé dans la scène !", this);
+            return;
+        }
+        
+        if (dialogue == null)
+        {
+            Debug.LogError("Aucun asset de Dialogue n'est assigné à ce trigger !", this);
+            return;
+        }
+
+        // On lance le dialogue !
+        dialogueManager.StartDialogue(dialogue);
+    }
+}
