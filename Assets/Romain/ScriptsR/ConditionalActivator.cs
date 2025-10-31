@@ -12,35 +12,36 @@ public class ConditionalActivator : MonoBehaviour
 
     [Header("Action à effectuer")]
     public GameObject targetObject;
-    [Tooltip("True = activer l’objet cible, False = le désactiver quand la condition est remplie")]
+    [Tooltip("True = activer l'objet cible quand la condition est remplie, False = le désactiver")]
     public bool setTargetActive = false;
-    [Tooltip("Empêche la répétition si la condition a déjà été remplie")]
-    public bool triggerOnce = true;
 
     [Header("État initial au démarrage")]
     [Tooltip("True = actif au lancement, False = inactif au lancement")]
     public bool initialActiveState = true;
 
-    private bool hasTriggered = false;
+    private bool lastConditionState = false; // permet de détecter les changements d’état
 
     void Start()
     {
-        // Fixe l'état de départ du GameObject cible
+        // Fixe l'état initial
         if (targetObject != null)
             targetObject.SetActive(initialActiveState);
     }
 
     void Update()
     {
-        if (hasTriggered && triggerOnce)
-            return;
+        bool condition = AllMatchCondition();
 
-        if (AllMatchCondition())
+        // Si la condition vient de changer d’état
+        if (condition != lastConditionState)
         {
+            lastConditionState = condition;
+
             if (targetObject != null)
             {
-                targetObject.SetActive(setTargetActive);
-                hasTriggered = true;
+                // Si la condition est vraie → applique l’action prévue
+                // Si elle redevient fausse → restaure l’état initial
+                targetObject.SetActive(condition ? setTargetActive : initialActiveState);
             }
         }
     }
