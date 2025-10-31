@@ -1835,6 +1835,7 @@ MonoBehaviour:
   - {fileID: 32532056}
   - {fileID: 1434378089}
   - {fileID: 1138347058}
+  - {fileID: 1695862358}
   requireAllActive: 0
   targetObjects:
   - {fileID: 1530485098}
@@ -4048,9 +4049,9 @@ Mesh:
     m_Data: 
   m_MeshCompression: 0
   m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
+  m_KeepVertices: 0
+  m_KeepIndices: 0
+  m_IndexFormat: 1
   m_IndexBuffer: 
   m_VertexData:
     serializedVersion: 3
@@ -4065,9 +4066,9 @@ Mesh:
       format: 0
       dimension: 0
     - stream: 0
-      offset: 0
+      offset: 12
       format: 0
-      dimension: 0
+      dimension: 4
     - stream: 0
       offset: 0
       format: 0
