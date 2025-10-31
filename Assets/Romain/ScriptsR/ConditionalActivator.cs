@@ -20,7 +20,12 @@ public class ConditionalActivator : MonoBehaviour
     [Tooltip("True = actif au lancement, False = inactif au lancement")]
     public bool initialActiveState = true;
 
-    private bool lastConditionState = false; // permet de détecter les changements d’état
+    [Header("Activation unique")]
+    [Tooltip("Si activé, le changement ne peut se produire qu'une seule fois (permanent après la première activation).")]
+    public bool oneTimeTrigger = false;
+
+    private bool lastConditionState = false;
+    private bool hasBeenTriggered = false; // empêche de rejouer l’action
 
     void Start()
     {
@@ -34,6 +39,9 @@ public class ConditionalActivator : MonoBehaviour
 
     void Update()
     {
+        if (hasBeenTriggered && oneTimeTrigger)
+            return; // plus rien à faire si l'action est définitive
+
         bool condition = AllMatchCondition();
 
         // Si la condition vient de changer d’état
@@ -41,13 +49,28 @@ public class ConditionalActivator : MonoBehaviour
         {
             lastConditionState = condition;
 
-            foreach (var target in targetObjects)
+            // Si la condition est remplie
+            if (condition)
             {
-                if (target != null)
+                foreach (var target in targetObjects)
                 {
-                    // Si la condition est vraie → applique l’action prévue
-                    // Si elle redevient fausse → restaure l’état initial
-                    target.SetActive(condition ? setTargetActive : initialActiveState);
+                    if (target != null)
+                        target.SetActive(setTargetActive);
+                }
+
+                if (oneTimeTrigger)
+                    hasBeenTriggered = true; // bloque toute nouvelle mise à jour
+            }
+            else
+            {
+                // Si on ne veut pas un déclenchement unique, on restaure l’état initial
+                if (!oneTimeTrigger)
+                {
+                    foreach (var target in targetObjects)
+                    {
+                        if (target != null)
+                            target.SetActive(initialActiveState);
+                    }
                 }
             }
         }
