@@ -14,7 +14,7 @@ public class PostProcessCreepinessController : MonoBehaviour
 
     void Start()
     {
-        player = FindObjectOfType<PlayerController>();
+        player = FindFirstObjectByType<PlayerController>();
 
         if (postProcessVolume != null && postProcessVolume.profile != null)
         {
