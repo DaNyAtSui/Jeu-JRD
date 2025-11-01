@@ -25,18 +25,18 @@ public class PushBlock2D : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
         rb.freezeRotation = true; 
-        rb.drag = 4f;          
+        rb.linearDamping = 4f;          
     }
 
     private void FixedUpdate()
     {
         if (isSnapping) return;
 
-        if (rb.velocity.magnitude > maxSpeed)
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+        if (rb.linearVelocity.magnitude > maxSpeed)
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
 
         // Si presque immobile → SNAP
-        if (enableSnap && rb.velocity.magnitude < snapThreshold && (transform.position - lastPos).sqrMagnitude > 0.0001f)
+        if (enableSnap && rb.linearVelocity.magnitude < snapThreshold && (transform.position - lastPos).sqrMagnitude > 0.0001f)
         {
             SnapToGrid();
         }
@@ -54,7 +54,7 @@ public class PushBlock2D : MonoBehaviour
         pos.y = Mathf.Round(pos.y);
 
         transform.position = pos;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
 
         // Laisse un petit temps pour éviter re-snap immédiat
         Invoke(nameof(ReleaseSnap), 0.05f);
