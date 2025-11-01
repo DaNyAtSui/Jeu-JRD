@@ -23,20 +23,25 @@ public class PushBlock2D : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
         rb.gravityScale = 0f;
-        rb.freezeRotation = true; 
-        rb.drag = 4f;          
+        rb.freezeRotation = true;
+
+        // Nouveau nom sous Unity 6 :
+        rb.linearDamping = 4f;
     }
 
     private void FixedUpdate()
     {
         if (isSnapping) return;
 
-        if (rb.velocity.magnitude > maxSpeed)
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+        // Limiter la vitesse max (Unity 6 : linearVelocity)
+        if (rb.linearVelocity.magnitude > maxSpeed)
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
 
-        // Si presque immobile → SNAP
-        if (enableSnap && rb.velocity.magnitude < snapThreshold && (transform.position - lastPos).sqrMagnitude > 0.0001f)
+        // Snap si quasi immobile mais a bougé
+        if (enableSnap && rb.linearVelocity.magnitude < snapThreshold &&
+            (transform.position - lastPos).sqrMagnitude > 0.0001f)
         {
             SnapToGrid();
         }
@@ -48,15 +53,14 @@ public class PushBlock2D : MonoBehaviour
     {
         isSnapping = true;
 
-        // On arrondit au centre de cellule
         Vector3 pos = transform.position;
         pos.x = Mathf.Round(pos.x);
         pos.y = Mathf.Round(pos.y);
 
         transform.position = pos;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
 
-        // Laisse un petit temps pour éviter re-snap immédiat
+        // Petit délai pour éviter re-snap immédiat
         Invoke(nameof(ReleaseSnap), 0.05f);
     }
 
@@ -67,10 +71,11 @@ public class PushBlock2D : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
-        {
-            Vector2 pushDir = collision.contacts[0].normal * -1f;
-            rb.AddForce(pushDir * pushForce, ForceMode2D.Force);
-        }
+        if (!collision.collider.CompareTag("Player")) return;
+
+        Vector2 pushDir = -collision.contacts[0].normal;
+
+        // Ajout de force selon Unity 6
+        rb.AddForce(pushDir * pushForce, ForceMode2D.Force);
     }
 }
