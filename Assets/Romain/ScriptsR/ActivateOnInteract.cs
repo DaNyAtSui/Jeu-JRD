@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class ActivateOnInteract : MonoBehaviour
 {
@@ -9,34 +10,19 @@ public class ActivateOnInteract : MonoBehaviour
     [Header("Texte d'interaction (TMP)")]
     public TMP_Text interactionText;
     [Tooltip("Texte affiché quand le joueur est dans la zone")]
-    public string message = "E pour interagir";
+    public string message = "Interagir";
 
     [Header("Paramètres")]
     [Tooltip("True = se détruit après activation")]
     public bool destroyAfterActivation = false;
 
     private bool isPlayerInZone = false;
+    private PlayerInput playerInput;
 
     void Start()
     {
-        // Cache le texte au départ
         if (interactionText != null)
             interactionText.gameObject.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (isPlayerInZone && Input.GetKeyDown(KeyCode.E))
-        {
-            if (targetObject != null)
-                targetObject.SetActive(true);
-
-            if (interactionText != null)
-                interactionText.gameObject.SetActive(false);
-
-            if (destroyAfterActivation)
-                Destroy(gameObject);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -44,6 +30,12 @@ public class ActivateOnInteract : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInZone = true;
+
+            // Récupère le PlayerInput du joueur
+            playerInput = other.GetComponent<PlayerInput>();
+
+            if (playerInput != null)
+                playerInput.actions["Interact"].performed += OnInteract;
 
             if (interactionText != null)
             {
@@ -59,8 +51,31 @@ public class ActivateOnInteract : MonoBehaviour
         {
             isPlayerInZone = false;
 
+            if (playerInput != null)
+                playerInput.actions["Interact"].performed -= OnInteract;
+
             if (interactionText != null)
                 interactionText.gameObject.SetActive(false);
         }
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!isPlayerInZone) return;
+
+        if (targetObject != null)
+            targetObject.SetActive(true);
+
+        if (interactionText != null)
+            interactionText.gameObject.SetActive(false);
+
+        if (destroyAfterActivation)
+            Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
+        if (playerInput != null)
+            playerInput.actions["Interact"].performed -= OnInteract;
     }
 }
