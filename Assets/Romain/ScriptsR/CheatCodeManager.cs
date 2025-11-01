@@ -18,7 +18,7 @@ public class CheatCodeManager : MonoBehaviour
 
     void Start()
     {
-        playerInput = FindObjectOfType<PlayerInput>();
+        playerInput = UnityEngine.Object.FindFirstObjectByType<PlayerInput>();
         if (playerInput != null)
             playerInput.actions["Cheatcode"].performed += ToggleCheat;
         else
