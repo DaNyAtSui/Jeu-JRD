@@ -3,12 +3,9 @@ using System.Reflection;
 
 /// <summary>
 /// HauntedShadowHint — Silhouette humanoïde floue (2D top-down) + audio spectral discret.
-/// - Multi-sprites (2–3+ silhouettes).
-/// - Spawn en bord de vision, fade-in/out, déplacement lent→rapide selon creepiness.
-/// - Disparition INSTANT si le joueur la regarde (cône ~90°).
-/// - Sorting order évolutif (derrière décor → même plan → un poil devant).
-/// - Sync complète sur PlayerController.creepinessLevel (auto-link via reflection).
-/// - Son spectral "background" à la disparition (progressif: quasi inaudible → clair mais pas fort).
+/// - Spawn en bord de vision, fade-in/out, déplacement selon creepiness.
+/// - Disparition instant si le joueur la regarde (cône ~90°).
+/// - Son spectral uniquement si l'ombre a été VISIBLE (alpha > seuil).
 /// </summary>
 [DisallowMultipleComponent]
 public class HauntedShadowHint : MonoBehaviour
@@ -68,6 +65,8 @@ public class HauntedShadowHint : MonoBehaviour
     public float fallbackTimeToMax = 240f;
 
     // --- interne ---
+    const float AUDIBLE_ALPHA_THRESHOLD = 0.15f; // seuil de "visible" pour jouer le son
+
     float timer, lifeTimer;
     bool fadingIn, fadingOut;
     float currentAlpha;
@@ -102,22 +101,22 @@ public class HauntedShadowHint : MonoBehaviour
         shadowRenderer.enabled = false;
         SetRendererAlpha(0f);
 
-        // Auto-create spectral AudioSource si manquant
+        // AudioSource (créé si manquant)
         if (spectralSource == null)
         {
             spectralSource = gameObject.AddComponent<AudioSource>();
-            spectralSource.playOnAwake = false;
-            spectralSource.loop = false;
-            spectralSource.spatialBlend = spectralSpatialBlend;
-            spectralSource.volume = spectralVolMin;
         }
+        spectralSource.playOnAwake = false;
+        spectralSource.loop = false;
+        spectralSource.clip = null;          // sécurité anti-lecture au start
+        spectralSource.Stop();               // idem
+        spectralSource.spatialBlend = spectralSpatialBlend;
+        spectralSource.volume = spectralVolMin;
 
         // Auto-link PlayerController (pour creepinessLevel)
-        // Use Resources.FindObjectsOfTypeAll and filter to scene instances to avoid deprecated API.
         foreach (var mb in Resources.FindObjectsOfTypeAll<MonoBehaviour>())
         {
             if (mb == null) continue;
-            // Ignore assets/prefabs; only consider scene objects
             if (!mb.gameObject.scene.IsValid()) continue;
 
             if (mb.GetType().Name == "PlayerController")
@@ -131,6 +130,26 @@ public class HauntedShadowHint : MonoBehaviour
         }
 
         ScheduleNextSpawn();
+    }
+
+    void Start()
+    {
+        // Empêche toute lecture parasite au lancement
+        if (spectralSource != null)
+        {
+            spectralSource.Stop();
+            spectralSource.clip = null;
+            spectralSource.playOnAwake = false;
+        }
+    }
+
+    void OnDisable()
+    {
+        // Si le prefab est masqué/disable, aucun son en cours
+        if (spectralSource != null) spectralSource.Stop();
+        shadowRenderer?.gameObject.SetActive(false);
+        fadingIn = fadingOut = false;
+        currentAlpha = 0f;
     }
 
     void ScheduleNextSpawn()
@@ -156,6 +175,9 @@ public class HauntedShadowHint : MonoBehaviour
     {
         float creep = ReadCreepiness01();
         if (shadowSprites == null || shadowSprites.Length == 0 || player == null) { ScheduleNextSpawn(); return; }
+
+        // Assure aucun son résiduel au moment du spawn
+        if (spectralSource != null && spectralSource.isPlaying) spectralSource.Stop();
 
         // Sprite au hasard
         shadowRenderer.sprite = shadowSprites[Random.Range(0, shadowSprites.Length)];
@@ -235,16 +257,14 @@ public class HauntedShadowHint : MonoBehaviour
 
     bool IsPlayerLookingAtShadow(Transform playerTf, Vector3 shadowPos)
     {
-        // On récupère MoveX/MoveY (set par ton PlayerController dans l'Animator)
         var anim = playerTf.GetComponentInChildren<Animator>();
         if (anim == null) return false;
 
         Vector2 facing = new Vector2(anim.GetFloat("MoveX"), anim.GetFloat("MoveY")).normalized;
-        if (facing.sqrMagnitude < 0.1f) return false; // si le perso n'a pas encore de facing clair, on ne trigger pas
+        if (facing.sqrMagnitude < 0.1f) return false;
 
         Vector2 dirTo = ((Vector2)(shadowPos - playerTf.position)).normalized;
 
-        // cône frontal ~90° (seuil = cos(halfAngle))
         float threshold = Mathf.Cos(viewCone * 0.5f * Mathf.Deg2Rad);
         float dot = Vector2.Dot(facing, dirTo);
         return dot > threshold;
@@ -257,7 +277,9 @@ public class HauntedShadowHint : MonoBehaviour
             fadingOut = true;
             fadingIn = false;
 
-            if (playSpectral) PlaySpectralOneShotOnce();
+            // Son uniquement si l'ombre a été visiblement présente
+            if (playSpectral && shadowRenderer.enabled && currentAlpha >= AUDIBLE_ALPHA_THRESHOLD)
+                PlaySpectralOneShotOnce();
         }
     }
 
@@ -266,13 +288,15 @@ public class HauntedShadowHint : MonoBehaviour
         if (spectralPlayedThisAppearance) return;
         if (spectralSource == null || spectralClips == null || spectralClips.Length == 0) return;
 
+        // Sécurité : pas de son si non visible
+        if (!shadowRenderer.enabled || currentAlpha < AUDIBLE_ALPHA_THRESHOLD) return;
+
         spectralPlayedThisAppearance = true;
 
         float creep = ReadCreepiness01();
 
-        // Volume progressif (A→B→C discret) : quasi inaudible → subtil → clair mais pas fort
-        float vol = Mathf.Lerp(spectralVolMin, spectralVolMax, creep);
-        spectralSource.volume = vol;
+        // Volume progressif : quasi inaudible → subtil → clair mais pas fort
+        spectralSource.volume = Mathf.Lerp(spectralVolMin, spectralVolMax, Mathf.Clamp01(creep));
 
         // Pitch léger jitter, proportionnel à creepiness
         float jitter = spectralPitchJitter * Mathf.Clamp01(creep);
@@ -300,7 +324,7 @@ public class HauntedShadowHint : MonoBehaviour
                 if (v is float f) return Mathf.Clamp01(f);
             }
         }
-        // Fallback: progression lente autonome
+        // Fallback: progression lente autonome (si pas de PlayerController)
         internalCreepiness = Mathf.Clamp01(internalCreepiness + Time.deltaTime / Mathf.Max(1f, fallbackTimeToMax));
         return internalCreepiness;
     }

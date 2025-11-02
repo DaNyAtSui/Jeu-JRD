@@ -2,33 +2,33 @@ using UnityEngine;
 
 public class VoiceTriggerOnce : MonoBehaviour
 {
-    [Header("Voice")]
+    [Header("Voice Settings")]
     public AudioSource voiceSource;
     public AudioClip voiceClip;
 
-    [Header("Door Link")]
-    public DoorController_U1 door; // Drag & Drop la porte avec le script DoorController_U1
+    [Header("Door Link (une des deux suffit)")]
+    public DoorController_U1 doorU1;            // première porte du jeu (script narratif)
+    public DoorController_Timed doorTimed;      // deuxième salle (voix + puzzle)
 
-    [Tooltip("Temps avant la fin du voiceClip pour ouvrir la porte (négatif = après)")]
-    public float openOffset = -0.2f; // -0.2 = 0.2 sec AVANT la fin
+    [Tooltip("Temps avant la fin du voiceClip pour ouvrir la porte (négatif = avant la fin)")]
+    public float openOffset = -0.2f; // -0.2 = 0.2 sec avant la fin
 
     private bool hasTriggered = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (hasTriggered) return;
+        if (!other.CompareTag("Player")) return;
 
-        if (other.CompareTag("Player"))
-        {
-            hasTriggered = true;
-            PlayVoiceAndQueueDoorOpen();
-        }
+        hasTriggered = true;
+        PlayVoiceAndQueueDoorOpen();
     }
 
     private void PlayVoiceAndQueueDoorOpen()
     {
         float duration = 0f;
 
+        // 🎙️ Lecture de la voix
         if (voiceSource != null && voiceClip != null)
         {
             voiceSource.clip = voiceClip;
@@ -36,17 +36,27 @@ public class VoiceTriggerOnce : MonoBehaviour
             duration = voiceClip.length;
         }
 
-        if (door != null)
-        {
-            float delay = duration + openOffset;
-            if (delay < 0f) delay = 0f; // sécurité
+        // 🕒 Calcul du délai avant ouverture
+        float delay = duration + openOffset;
+        if (delay < 0f) delay = 0f;
 
-            Invoke(nameof(OpenDoor), delay);
-        }
+        Invoke(nameof(OpenLinkedDoor), delay);
     }
 
-    private void OpenDoor()
+    private void OpenLinkedDoor()
     {
-        door.SendMessage("OpenDoor", SendMessageOptions.DontRequireReceiver);
+        // 🚪 Pour la première porte (U1)
+        if (doorU1 != null)
+        {
+            doorU1.SendMessage("OpenDoor", SendMessageOptions.DontRequireReceiver);
+            Debug.Log("🚪 Porte U1 ouverte par voix.");
+        }
+
+        // 🕰️ Pour la deuxième salle (DoorController_Timed)
+        if (doorTimed != null)
+        {
+            doorTimed.OpenDoor();
+            Debug.Log("🎙️ Porte Timed ouverte par voix.");
+        }
     }
 }

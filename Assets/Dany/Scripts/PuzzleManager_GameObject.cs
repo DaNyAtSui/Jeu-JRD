@@ -8,15 +8,17 @@ public class PuzzleManager_GameObject : MonoBehaviour
     [Header("Porte à déverrouiller quand le puzzle est réussi")]
     public DoorController_PuzzleOnce doorToUnlock;
 
+    [Header("ID d’énigme (1 ou 2)")]
+    public int puzzleID = 2; // 1 ou 2 selon la salle
+
     private bool puzzleDone = false;
 
     void Update()
     {
         if (puzzleDone) return;
-        if (spots == null || spots.Length == 0) return; // Sécurité : aucun spot trouvé
+        if (spots == null || spots.Length == 0) return;
 
         int count = 0;
-
         foreach (var spot in spots)
         {
             if (spot != null && spot.isOccupied)
@@ -26,12 +28,21 @@ public class PuzzleManager_GameObject : MonoBehaviour
         if (count >= spots.Length)
         {
             puzzleDone = true;
-            Debug.Log("✅ Puzzle Complété ! Ouverture de la porte puzzle !");
+            Debug.Log("✅ Puzzle des blocs complété !");
 
             if (doorToUnlock != null)
                 doorToUnlock.UnlockDoor();
-            else
-                Debug.LogWarning("⚠️ Aucun DoorController_PuzzleOnce assigné dans PuzzleManager !");
+
+            // 🧩 Marquer l'énigme comme terminée dans le GameManager
+            if (GameManager.Instance != null)
+            {
+                if (puzzleID == 1)
+                    GameManager.Instance.puzzleRoom1Completed = true;
+                else if (puzzleID == 2)
+                    GameManager.Instance.puzzleRoom2Completed = true;
+
+                Debug.Log($"📜 Enigme {puzzleID} validée !");
+            }
         }
     }
 }
