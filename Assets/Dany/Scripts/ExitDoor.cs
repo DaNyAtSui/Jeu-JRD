@@ -13,6 +13,7 @@ public class ExitDoor : MonoBehaviour
     public Animator doorAnimator;          // Animator de la porte
     public SoundDoor soundDoor;            // Script SoundDoor pour jouer les sons
     public AudioSource extraAudio;         // optionnel : autre AudioSource pour sons d'ambiance
+    public Collider2D doorCollider;        // ✅ Collider physique à désactiver lors de l'ouverture
 
     [Header("Audio secondaire")]
     public AudioClip deniedClip;           // son si énigmes incomplètes (porte bloquée)
@@ -26,15 +27,20 @@ public class ExitDoor : MonoBehaviour
     private Transform player;
     private bool isOpening = false;
 
-    // 🧠 nouvelle référence au PlayerInput pour capter l’action "Interact"
     private PlayerInput playerInput;
 
     private void Start()
     {
-        // récupère le PlayerInput du joueur dans la scène
         playerInput = Object.FindFirstObjectByType<PlayerInput>();
         if (playerInput == null)
             Debug.LogWarning("⚠️ Aucun PlayerInput trouvé dans la scène — la touche Interact ne fonctionnera pas.");
+
+        if (doorCollider == null)
+        {
+            doorCollider = GetComponent<Collider2D>();
+            if (doorCollider == null)
+                Debug.LogWarning("⚠️ Aucun Collider2D trouvé sur la porte !");
+        }
     }
 
     private void Update()
@@ -42,17 +48,15 @@ public class ExitDoor : MonoBehaviour
         if (!playerInZone || playerInput == null) return;
 
         var interact = playerInput.actions["Interact"];
-
         if (interact != null && interact.WasPressedThisFrame())
         {
-            Debug.Log("🎯 Action Interact détectée par ExitDoor !");
             TryExit();
         }
     }
 
     private void TryExit()
     {
-        if (isOpening) return; // éviter de spammer la touche
+        if (isOpening) return;
 
         if (!GameManager.Instance.AllPuzzlesCompleted())
         {
@@ -68,17 +72,13 @@ public class ExitDoor : MonoBehaviour
 
     private IEnumerator PlayLockedDoorFeedback()
     {
-        // animation d’essai d’ouverture refusée
         if (doorAnimator != null)
             doorAnimator.SetTrigger("TryOpen");
 
-        // son de porte verrouillée
         if (extraAudio && deniedClip)
             extraAudio.PlayOneShot(deniedClip);
 
         yield return new WaitForSeconds(1f);
-
-        // 🌀 Boucle temporelle → replacer le joueur
         StartCoroutine(TimeLoopReset());
     }
 
@@ -86,23 +86,29 @@ public class ExitDoor : MonoBehaviour
     {
         isOpening = true;
 
-        // animation + son de déverrouillage
+        // 🔓 Animation + son de déverrouillage
         if (unlockClip && extraAudio)
             extraAudio.PlayOneShot(unlockClip);
 
         yield return new WaitForSeconds(0.3f);
 
-        // animation d’ouverture
         if (doorAnimator != null)
             doorAnimator.SetTrigger("Open");
 
-        // son de porte via SoundDoor
         if (soundDoor != null)
             soundDoor.PlayDoorOpenSFX();
 
-        yield return new WaitForSeconds(1.5f);
+        // ⏳ Laisse l'anim se jouer avant de désactiver le collider
+        yield return new WaitForSeconds(1f);
 
-        // transition vers la scène suivante
+        // ✅ Désactivation du collider (le joueur peut sortir)
+        if (doorCollider != null)
+        {
+            doorCollider.enabled = false;
+            Debug.Log("🟩 Collider de la porte désactivé — passage autorisé.");
+        }
+
+        // Transition (facultative selon ton design)
         if (fadeCanvas != null)
             yield return StartCoroutine(FadeScreen(1));
 
@@ -119,24 +125,19 @@ public class ExitDoor : MonoBehaviour
 
     private IEnumerator TimeLoopReset()
     {
-        // 🕳️ 1. Fade IN (noir complet)
         if (fadeCanvas != null)
             yield return StartCoroutine(FadeScreen(1));
 
-        // 🕰️ 2. petite pause pour bien couvrir la transition visuelle
         yield return new WaitForSeconds(0.4f);
 
-        // 🌀 3. Téléportation du joueur
         if (player != null && loopRespawnPoint != null)
         {
             player.position = loopRespawnPoint.position;
             Debug.Log("🔁 Boucle temporelle : retour au point de départ !");
         }
 
-        // 🧩 4. Pause supplémentaire pour laisser la caméra se recentrer
         yield return new WaitForSeconds(0.6f);
 
-        // 🌅 5. Fade OUT (retour à la lumière)
         if (fadeCanvas != null)
             yield return StartCoroutine(FadeScreen(0));
     }
