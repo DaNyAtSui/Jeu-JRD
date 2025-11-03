@@ -5,9 +5,11 @@ using UnityEngine;
 public enum Speaker
 {
     Player,
+    PlayerThought,
+    PlayerCinematic,
+    PlayerTwo,
     Entity,
-    Narrator,
-    PlayerThought
+    Narrator
 }
 
 [System.Serializable]

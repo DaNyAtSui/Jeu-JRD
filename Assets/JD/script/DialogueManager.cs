@@ -17,6 +17,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerThoughtText;
     [SerializeField] private Button playerThoughtContinueButton;
 
+    [Header("UI Elements (Player Two)")]
+    [SerializeField] private GameObject playerTwoDialogueBox;
+    [SerializeField] private TextMeshProUGUI playerTwoDialogueText;
+    [SerializeField] private Button playerTwoContinueButton;
+
     [Header("UI Elements (Entity)")]
     [SerializeField] private GameObject entityDialogueBox;
     [SerializeField] private TextMeshProUGUI entityDialogueText;
@@ -33,10 +38,11 @@ public class DialogueManager : MonoBehaviour
 
     private Queue<DialogueLine> sentences;
     private Coroutine typingCoroutine;
-    
+
     // --- CHANGEMENT ICI ---
     // On ajoute une variable pour stocker le "contexte" (l'objet qui parle)
     private Transform currentContextTransform;
+    public bool IsDialogueActive { get; private set; }
 
     void Start()
     {
@@ -44,10 +50,12 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<DialogueLine>();
         if (playerContinueButton) playerContinueButton.onClick.AddListener(DisplayNextSentence);
         if (playerThoughtContinueButton) playerThoughtContinueButton.onClick.AddListener(DisplayNextSentence);
+        if (playerTwoContinueButton) playerTwoContinueButton.onClick.AddListener(DisplayNextSentence);
         if (narratorContinueButton) narratorContinueButton.onClick.AddListener(DisplayNextSentence);
         
         playerDialogueBox.SetActive(false);
         entityDialogueBox.SetActive(false);
+        playerTwoDialogueBox.SetActive(false);
         playerThoughtBox.SetActive(false);
         narratorBox.SetActive(false);
     }
@@ -69,7 +77,7 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(line);
         }
-
+        IsDialogueActive = true;
         DisplayNextSentence();
     }
 
@@ -81,6 +89,7 @@ public class DialogueManager : MonoBehaviour
         playerContinueButton.gameObject.SetActive(false);
         entityContinueButton.gameObject.SetActive(false);
         playerThoughtContinueButton.gameObject.SetActive(false);
+        playerTwoContinueButton.gameObject.SetActive(false);
         narratorContinueButton.gameObject.SetActive(false);
 
         if (sentences.Count == 0)
@@ -88,7 +97,9 @@ public class DialogueManager : MonoBehaviour
             playerDialogueBox.SetActive(false);
             entityDialogueBox.SetActive(false);
             playerThoughtBox.SetActive(false);
+            playerTwoDialogueBox.SetActive(false);
             narratorBox.SetActive(false);
+            IsDialogueActive = false;
             return;
         }
 
@@ -106,6 +117,7 @@ public class DialogueManager : MonoBehaviour
         playerDialogueBox.SetActive(false);
         entityDialogueBox.SetActive(false);
         playerThoughtBox.SetActive(false);
+        playerTwoDialogueBox.SetActive(false);
         narratorBox.SetActive(false);
 
         switch (line.speaker)
@@ -120,6 +132,20 @@ public class DialogueManager : MonoBehaviour
                 textComponent = playerThoughtText;
                 dialogueBox = playerThoughtBox;
                 continueButton = playerThoughtContinueButton;
+                break;
+
+            // CAS 1 : Player 1 en mode cinématique
+            case Speaker.PlayerCinematic:
+                textComponent = playerDialogueText;      // On réutilise le texte du Player 1
+                dialogueBox = playerDialogueBox;         // On réutilise la boîte du Player 1
+                continueButton = null;                   // <-- IMPORTANT : Pas de bouton
+                break;
+
+            // CAS 2 : Le nouveau "Player 2"
+            case Speaker.PlayerTwo:
+                textComponent = playerTwoDialogueText;
+                dialogueBox = playerTwoDialogueBox;
+                continueButton = playerTwoContinueButton;
                 break;
 
             case Speaker.Entity:
@@ -158,14 +184,16 @@ public class DialogueManager : MonoBehaviour
         // ... (La fin de la fonction (logique de bouton/timer) reste identique) ...
         if (line.speaker == Speaker.Player || 
             line.speaker == Speaker.PlayerThought ||
-            line.speaker == Speaker.Narrator)
+            line.speaker == Speaker.Narrator ||
+            line.speaker == Speaker.PlayerTwo)
         {
             if (continueButton != null)
                 continueButton.gameObject.SetActive(true);
         }
-        else if (line.speaker == Speaker.Entity)
+        else if (line.speaker == Speaker.Entity ||
+             line.speaker == Speaker.PlayerCinematic) // <-- On ajoute PlayerCinematic ici
         {
-            yield return new WaitForSeconds(entityDisplayTime);
+            yield return new WaitForSeconds(entityDisplayTime); // On réutilise votre timer existant
             DisplayNextSentence();
         }
     }
