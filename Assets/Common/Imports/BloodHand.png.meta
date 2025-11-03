@@ -1,0 +1,923 @@
+fileFormatVersion: 2
+guid: 14c9f9cc62d653246a78cf8f501e46d3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4503218777959131839
+    second: BloodHand_0
+  - first:
+      213: 3338916308854936562
+    second: BloodHand_1
+  - first:
+      213: -1028271580750397405
+    second: BloodHand_2
+  - first:
+      213: -6232675189531475361
+    second: BloodHand_3
+  - first:
+      213: -1449755645840022796
+    second: BloodHand_4
+  - first:
+      213: 631494003054834231
+    second: BloodHand_5
+  - first:
+      213: -5351590129119356602
+    second: BloodHand_6
+  - first:
+      213: -4584902919913985320
+    second: BloodHand_7
+  - first:
+      213: -4833936209938431398
+    second: BloodHand_8
+  - first:
+      213: 9103199908932371234
+    second: BloodHand_9
+  - first:
+      213: -2340159041657698939
+    second: BloodHand_10
+  - first:
+      213: -1966280118325109656
+    second: BloodHand_11
+  - first:
+      213: -9036544101081442885
+    second: BloodHand_12
+  - first:
+      213: 7858179296533089534
+    second: BloodHand_13
+  - first:
+      213: -4176392964984499185
+    second: BloodHand_14
+  - first:
+      213: -6899598296450566931
+    second: BloodHand_15
+  - first:
+      213: -6689749208862304801
+    second: BloodHand_16
+  - first:
+      213: 1652846003606231704
+    second: BloodHand_17
+  - first:
+      213: 585083439085638423
+    second: BloodHand_18
+  - first:
+      213: -8170174107988652250
+    second: BloodHand_19
+  - first:
+      213: -5795854022256007254
+    second: BloodHand_20
+  - first:
+      213: -8985005550716444322
+    second: BloodHand_21
+  - first:
+      213: -8349419280320120337
+    second: BloodHand_22
+  - first:
+      213: -3443422012169077782
+    second: BloodHand_23
+  - first:
+      213: -1335998099270384484
+    second: BloodHand_24
+  - first:
+      213: 8671493564941505070
+    second: BloodHand_25
+  - first:
+      213: 4150590871271126732
+    second: BloodHand_26
+  - first:
+      213: -8490070883010011027
+    second: BloodHand_27
+  - first:
+      213: -4590966699592222051
+    second: BloodHand_28
+  - first:
+      213: -3440056688953227645
+    second: BloodHand_29
+  - first:
+      213: 5689296403693718777
+    second: BloodHand_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BloodHand_0
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 952
+        width: 191
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14590e9616a5181c0800000000000000
+      internalID: -4503218777959131839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_1
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 1082
+        width: 183
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f39e0c41b6365e20800000000000000
+      internalID: 3338916308854936562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_2
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 297
+        width: 822
+        height: 1006
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3204eb00278dab1f0800000000000000
+      internalID: -1028271580750397405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_3
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 239
+        width: 348
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f52069fefe61189a0800000000000000
+      internalID: -6232675189531475361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_4
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 543
+        width: 219
+        height: 321
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f2a696dbee61ebe0800000000000000
+      internalID: -1449755645840022796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_5
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 436
+        width: 116
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7327fd1337483c800800000000000000
+      internalID: 631494003054834231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_6
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 418
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6499a5aa1255bb5b0800000000000000
+      internalID: -5351590129119356602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_7
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 429
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8da20e016172f50c0800000000000000
+      internalID: -4584902919913985320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_8
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 429
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a52c8bbd0a86aecb0800000000000000
+      internalID: -4833936209938431398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_9
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 414
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 223484b1610155e70800000000000000
+      internalID: 9103199908932371234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_10
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 409
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 585031410c5168fd0800000000000000
+      internalID: -2340159041657698939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_11
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 392
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86c915276ae56b4e0800000000000000
+      internalID: -1966280118325109656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_12
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 292
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb593e9840fb79280800000000000000
+      internalID: -9036544101081442885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_13
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 255
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efc0f2f8f6cdd0d60800000000000000
+      internalID: 7858179296533089534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_14
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 292
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0498afc9b87a06c0800000000000000
+      internalID: -4176392964984499185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_15
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 286
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de47c2fa7e3bf30a0800000000000000
+      internalID: -6899598296450566931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_16
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 251
+        width: 44
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd5df41d98c3923a0800000000000000
+      internalID: -6689749208862304801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_17
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 265
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89a9f51eea610f610800000000000000
+      internalID: 1652846003606231704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_18
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 114
+        width: 83
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 713d9a6b942ae1800800000000000000
+      internalID: 585083439085638423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_19
+      rect:
+        serializedVersion: 2
+        x: 767
+        y: 228
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f0e3cafe5bd9e80800000000000000
+      internalID: -8170174107988652250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_20
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 232
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa76969797df09fa0800000000000000
+      internalID: -5795854022256007254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_21
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 228
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5122a46e09de4380800000000000000
+      internalID: -8985005550716444322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_22
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 241
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe9b8b3d667e02c80800000000000000
+      internalID: -8349419280320120337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_23
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 216
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aebb6e88ce18630d0800000000000000
+      internalID: -3443422012169077782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_24
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 205
+        width: 25
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c944460aec4957de0800000000000000
+      internalID: -1335998099270384484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_25
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 177
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e229c6a2475575870800000000000000
+      internalID: 8671493564941505070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_26
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 176
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc6381a186cd99930800000000000000
+      internalID: 4150590871271126732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_27
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 181
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d602d44a3853d2a80800000000000000
+      internalID: -8490070883010011027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_28
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 158
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a78275c1c9940c0800000000000000
+      internalID: -4590966699592222051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_29
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 90
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3868cb7eaa67240d0800000000000000
+      internalID: -3440056688953227645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodHand_30
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 58
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fc421c9fe074fe40800000000000000
+      internalID: 5689296403693718777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BloodHand_0: -4503218777959131839
+      BloodHand_1: 3338916308854936562
+      BloodHand_10: -2340159041657698939
+      BloodHand_11: -1966280118325109656
+      BloodHand_12: -9036544101081442885
+      BloodHand_13: 7858179296533089534
+      BloodHand_14: -4176392964984499185
+      BloodHand_15: -6899598296450566931
+      BloodHand_16: -6689749208862304801
+      BloodHand_17: 1652846003606231704
+      BloodHand_18: 585083439085638423
+      BloodHand_19: -8170174107988652250
+      BloodHand_2: -1028271580750397405
+      BloodHand_20: -5795854022256007254
+      BloodHand_21: -8985005550716444322
+      BloodHand_22: -8349419280320120337
+      BloodHand_23: -3443422012169077782
+      BloodHand_24: -1335998099270384484
+      BloodHand_25: 8671493564941505070
+      BloodHand_26: 4150590871271126732
+      BloodHand_27: -8490070883010011027
+      BloodHand_28: -4590966699592222051
+      BloodHand_29: -3440056688953227645
+      BloodHand_3: -6232675189531475361
+      BloodHand_30: 5689296403693718777
+      BloodHand_4: -1449755645840022796
+      BloodHand_5: 631494003054834231
+      BloodHand_6: -5351590129119356602
+      BloodHand_7: -4584902919913985320
+      BloodHand_8: -4833936209938431398
+      BloodHand_9: 9103199908932371234
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
