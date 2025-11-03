@@ -119,7 +119,10 @@ public class HauntedShadowHint : MonoBehaviour
             if (mb == null) continue;
             if (!mb.gameObject.scene.IsValid()) continue;
 
-            if (mb.GetType().Name == "PlayerController")
+            string typeName = mb.GetType().Name;
+
+            // accepte PlayerController ou PlayerControllerNew
+            if (typeName == "PlayerController" || typeName == "PlayerControllerNew")
             {
                 playerController = mb;
                 var t = mb.GetType();

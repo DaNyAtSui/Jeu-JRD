@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class VoiceTriggerOnce : MonoBehaviour
 {
@@ -13,7 +14,18 @@ public class VoiceTriggerOnce : MonoBehaviour
     [Tooltip("Temps avant la fin du voiceClip pour ouvrir la porte (négatif = avant la fin)")]
     public float openOffset = -0.2f; // -0.2 = 0.2 sec avant la fin
 
+    [Header("Vibration Caméra")]
+    public Camera mainCamera;                  // Caméra principale (auto si vide)
+    public float shakeDuration = 0.3f;         // Durée du tremblement
+    public float shakeMagnitude = 0.15f;       // Intensité du tremblement
+
     private bool hasTriggered = false;
+
+    private void Awake()
+    {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -21,7 +33,13 @@ public class VoiceTriggerOnce : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         hasTriggered = true;
+
+        // 🔊 On lance la voix
         PlayVoiceAndQueueDoorOpen();
+
+        // 💥 Vibration caméra
+        if (mainCamera != null)
+            StartCoroutine(ShakeCamera());
     }
 
     private void PlayVoiceAndQueueDoorOpen()
@@ -58,5 +76,24 @@ public class VoiceTriggerOnce : MonoBehaviour
             doorTimed.OpenDoor();
             Debug.Log("🎙️ Porte Timed ouverte par voix.");
         }
+    }
+
+    // 💥 Effet de shake caméra identique à ClockTrigger_Vibrate
+    private IEnumerator ShakeCamera()
+    {
+        Vector3 originalPos = mainCamera.transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < shakeDuration)
+        {
+            float x = Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = Random.Range(-1f, 1f) * shakeMagnitude;
+            mainCamera.transform.localPosition = originalPos + new Vector3(x, y, 0f);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        mainCamera.transform.localPosition = originalPos;
     }
 }
