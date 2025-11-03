@@ -6,7 +6,8 @@ public enum Speaker
 {
     Player,
     Entity,
-    Narrator
+    Narrator,
+    PlayerThought
 }
 
 [System.Serializable]
