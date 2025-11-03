@@ -107,8 +107,7 @@ public class HauntedFlicker2D : MonoBehaviour
             _radiusBaseCached = Mathf.Max(radiusBase, 0f);
 
         // Auto-link PlayerController
-        var pc = FindObjectOfType<MonoBehaviour>(includeInactive: true);
-        foreach (var mb in FindObjectsOfType<MonoBehaviour>(includeInactive: true))
+        foreach (var mb in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
         {
             if (mb != null && mb.GetType().Name == "PlayerController")
             {

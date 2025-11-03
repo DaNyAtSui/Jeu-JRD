@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/RomainScene.unity.meta
+guid: 22f5d4b47981a5d4c957def2cb863364
+========
 guid: 125f528cbb471754ca56f49db9e7782f
+>>>>>>>> origin/Jider:Assets/Scenes/JDscene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
