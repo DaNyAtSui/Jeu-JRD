@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a6478f3fc6c704ba3efb823fb60693, type: 3}
   m_Name: DA_Intro_Phase1_Cinematique
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
-  lines: []
+  lines:
+  - speaker: 2
+    sentence: S'il vous plait!!
+  - speaker: 2
+    sentence: j'ai besoin d'aide!!
+  - speaker: 4
+    sentence: ...entrez...
+  - speaker: 4
+    sentence: ...je suis ici...

@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (DialogueManager.IsPlayerFrozen)
+        {
+            if (animator != null) animator.SetBool("IsWalking", false);
+            return; 
+        }
         moveInput = input.Player.Move.ReadValue<Vector2>();
         bool isWalking = moveInput.sqrMagnitude > 0.01f;
 
@@ -67,6 +72,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (DialogueManager.IsPlayerFrozen)
+        {
+            rb.linearVelocity = Vector2.zero; 
+            return;
+        }
         rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
     }
 

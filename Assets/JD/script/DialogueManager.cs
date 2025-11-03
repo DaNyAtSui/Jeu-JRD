@@ -43,6 +43,7 @@ public class DialogueManager : MonoBehaviour
     // On ajoute une variable pour stocker le "contexte" (l'objet qui parle)
     private Transform currentContextTransform;
     public bool IsDialogueActive { get; private set; }
+    public static bool IsPlayerFrozen { get; private set; }
 
     void Start()
     {
@@ -64,6 +65,7 @@ public class DialogueManager : MonoBehaviour
     // StartDialogue accepte maintenant un paramètre "contextTransform" optionnel
     public void StartDialogue(Dialogue dialogue, Transform contextTransform = null)
     {
+        IsPlayerFrozen = true;
         playerDialogueBox.SetActive(false);
         entityDialogueBox.SetActive(false);
         playerThoughtBox.SetActive(false);
@@ -100,6 +102,7 @@ public class DialogueManager : MonoBehaviour
             playerTwoDialogueBox.SetActive(false);
             narratorBox.SetActive(false);
             IsDialogueActive = false;
+            IsPlayerFrozen = false;
             return;
         }
 
@@ -110,70 +113,87 @@ public class DialogueManager : MonoBehaviour
     // --- SEULE LA PARTIE "NARRATOR" CHANGE ICI ---
     private IEnumerator TypeSentence(DialogueLine line)
     {
+        // 1. On prépare les variables
         TextMeshProUGUI textComponent = null;
         GameObject dialogueBox = null;
         Button continueButton = null;
 
+        // 2. On cache toutes les boîtes par défaut
         playerDialogueBox.SetActive(false);
         entityDialogueBox.SetActive(false);
         playerThoughtBox.SetActive(false);
         playerTwoDialogueBox.SetActive(false);
         narratorBox.SetActive(false);
 
+        // 3. LE SWITCH CORRIGÉ (logique combinée)
         switch (line.speaker)
         {
             case Speaker.Player:
+                // Logique de pause
+                IsPlayerFrozen = true;
+                // Logique d'UI
                 textComponent = playerDialogueText;
                 dialogueBox = playerDialogueBox;
                 continueButton = playerContinueButton;
                 break;
 
             case Speaker.PlayerThought:
+                // Logique de pause
+                IsPlayerFrozen = false;
+                // Logique d'UI
                 textComponent = playerThoughtText;
                 dialogueBox = playerThoughtBox;
                 continueButton = playerThoughtContinueButton;
                 break;
 
-            // CAS 1 : Player 1 en mode cinématique
             case Speaker.PlayerCinematic:
-                textComponent = playerDialogueText;      // On réutilise le texte du Player 1
-                dialogueBox = playerDialogueBox;         // On réutilise la boîte du Player 1
-                continueButton = null;                   // <-- IMPORTANT : Pas de bouton
+                // Logique de pause
+                IsPlayerFrozen = true;
+                // Logique d'UI
+                textComponent = playerDialogueText;
+                dialogueBox = playerDialogueBox;
+                continueButton = null; // Pas de bouton
                 break;
 
-            // CAS 2 : Le nouveau "Player 2"
             case Speaker.PlayerTwo:
+                // Logique de pause (on suppose qu'il fige)
+                IsPlayerFrozen = true;
+                // Logique d'UI
                 textComponent = playerTwoDialogueText;
                 dialogueBox = playerTwoDialogueBox;
                 continueButton = playerTwoContinueButton;
                 break;
 
             case Speaker.Entity:
+                // Logique de pause
+                IsPlayerFrozen = true;
+                // Logique d'UI
                 textComponent = entityDialogueText;
                 dialogueBox = entityDialogueBox;
-                continueButton = entityContinueButton; 
+                continueButton = entityContinueButton;
                 break;
 
             case Speaker.Narrator:
+                // Logique de pause
+                IsPlayerFrozen = false;
+                // Logique d'UI
                 textComponent = narratorText;
                 dialogueBox = narratorBox;
                 continueButton = narratorContinueButton;
                 
-                // --- CHANGEMENT ICI ---
-                // Si on a reçu un "contexte" (l'objet interactif)
+                // Logique de position (spécifique au Narrator)
                 if (currentContextTransform != null)
                 {
-                    // On DÉPLACE la bulle du narrateur à la position de cet objet
                     dialogueBox.transform.position = currentContextTransform.position;
                 }
-                // Si aucun contexte n'est donné, la bulle s'affichera
-                // là où elle se trouve par défaut.
                 break;
         }
 
+        // 4. On active la bonne boîte (si elle existe)
         if(dialogueBox != null)
             dialogueBox.SetActive(true);
 
+        // 5. On lance l'effet de frappe
         textComponent.text = "";
         foreach (char letter in line.sentence.ToCharArray())
         {
@@ -181,7 +201,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        // ... (La fin de la fonction (logique de bouton/timer) reste identique) ...
+        // 6. On gère la fin de la phrase (Bouton vs Timer)
         if (line.speaker == Speaker.Player || 
             line.speaker == Speaker.PlayerThought ||
             line.speaker == Speaker.Narrator ||
@@ -191,9 +211,9 @@ public class DialogueManager : MonoBehaviour
                 continueButton.gameObject.SetActive(true);
         }
         else if (line.speaker == Speaker.Entity ||
-             line.speaker == Speaker.PlayerCinematic) // <-- On ajoute PlayerCinematic ici
+                line.speaker == Speaker.PlayerCinematic)
         {
-            yield return new WaitForSeconds(entityDisplayTime); // On réutilise votre timer existant
+            yield return new WaitForSeconds(entityDisplayTime);
             DisplayNextSentence();
         }
     }

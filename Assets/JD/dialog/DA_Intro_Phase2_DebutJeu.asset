@@ -12,4 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a6478f3fc6c704ba3efb823fb60693, type: 3}
   m_Name: DA_Intro_Phase2_DebutJeu
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
-  lines: []
+  lines:
+  - speaker: 0
+    sentence: Merci beaucoup
+  - speaker: 0
+    sentence: "je suis tomb\xE9 en panne devant votre maison"
+  - speaker: 0
+    sentence: En plus il pleut des cordes dehors
+  - speaker: 0
+    sentence: "Pourrais-je utiliser votre t\xE9l\xE9phone?"
+  - speaker: 0
+    sentence: Ou utiliser quelques outils?
+  - speaker: 4
+    sentence: ...je suis ici...
+  - speaker: 0
+    sentence: ok j'arrive
+  - speaker: 1
+    sentence: "il fait noir ici, il faut que je trouve de la lumi\xE8re"
+  - speaker: 5
+    sentence: "trouver la lumi\xE8re"
