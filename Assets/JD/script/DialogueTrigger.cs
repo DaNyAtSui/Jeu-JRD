@@ -10,9 +10,8 @@ public class DialogueTrigger : MonoBehaviour
     [Tooltip("L'asset de dialogue ('DVD') à charger")]
     [SerializeField] private Dialogue dialogue;
 
-
-    // C'est la seule fonction dont nous avons besoin.
-    // D'autres scripts (événements, timelines, etc.) l'appelleront.
+    
+    // C'est la fonction que vos événements appellent
     public void TriggerDialogue()
     {
         // Si le dialogueManager n'est pas assigné, on essaie de le trouver
@@ -27,14 +26,16 @@ public class DialogueTrigger : MonoBehaviour
             Debug.LogError("Aucun DialogueManager n'est assigné ou trouvé dans la scène !", this);
             return;
         }
-        
         if (dialogue == null)
         {
             Debug.LogError("Aucun asset de Dialogue n'est assigné à ce trigger !", this);
             return;
         }
 
-        // On lance le dialogue !
-        dialogueManager.StartDialogue(dialogue);
+        // --- CHANGEMENT ICI ---
+        // On appelle StartDialogue en lui passant DEUX choses :
+        // 1. Le dialogue à jouer (dialogue)
+        // 2. Le "contexte", c'est-à-dire la position de cet objet (this.transform)
+        dialogueManager.StartDialogue(dialogue, this.transform);
     }
 }

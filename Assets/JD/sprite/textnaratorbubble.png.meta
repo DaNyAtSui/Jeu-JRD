@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a61ff0f5f483dc240a8254f71b874df8
+guid: 194e8a0f45ca8a847905bbe5545f909e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9222669792353780625
-    second: textchatbubble_0
+      213: 6336190011265350332
+    second: textnaratorbubble_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: textchatbubble_0
+      name: textnaratorbubble_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 206
-        height: 161
+        width: 217
+        height: 87
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 13, y: 9, z: 13, w: 9}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 19309f5ff418dff70800000000000000
-      internalID: 9222669792353780625
+      spriteID: cba79d2ae3baee750800000000000000
+      internalID: 6336190011265350332
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 14af1fcdfd45c9540a88eff8d33bdb15
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      textchatbubble_0: 9222669792353780625
+      textnaratorbubble_0: 6336190011265350332
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

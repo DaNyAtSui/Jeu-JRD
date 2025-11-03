@@ -23,5 +23,7 @@ MonoBehaviour:
     sentence: ...Entrez...
   - speaker: 1
     sentence: ...Je suis ici...
-  - speaker: 0
-    sentence: Merci beaucoup!
+  - speaker: 3
+    sentence: c'est chelou ici. Pourquoi c'est tout noir
+  - speaker: 2
+    sentence: avance si t'es cap!
