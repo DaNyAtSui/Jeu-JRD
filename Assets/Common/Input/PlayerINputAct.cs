@@ -266,8 +266,8 @@ public partial class @PlayerINputAct: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a9588b8a-1e44-4148-99dc-9c12c6bd06bc"",
-                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""id"": ""e5dcba16-ec9e-4eea-8c7f-2c529f5fe7c1"",
+                    ""path"": ""<Keyboard>/pageUp"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -277,8 +277,8 @@ public partial class @PlayerINputAct: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e5dcba16-ec9e-4eea-8c7f-2c529f5fe7c1"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""id"": ""a1a91697-92c2-4311-831a-6992f7c0a3f8"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
