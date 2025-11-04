@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/RomainSceneFin.unity
     guid: 77cdb13cd049b0244adefea51e9325de
   - enabled: 1
+    path: Assets/Scenes/zzzFin.unity
+    guid: c50ed776b3ba9094fb9fab189943da74
+  - enabled: 1
     path: Assets/Scenes/Credit.unity
     guid: e442fb6ecfe68234692f45fb7866b114
   m_configObjects:
