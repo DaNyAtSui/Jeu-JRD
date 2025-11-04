@@ -5090,8 +5090,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1740444571}
     - target: {fileID: 696953337248228805, guid: 9196f53a02e16af4d8c1f631facd915e, type: 3}
+      propertyPath: creditSceneName
+      value: Credit
+      objectReference: {fileID: 0}
+    - target: {fileID: 696953337248228805, guid: 9196f53a02e16af4d8c1f631facd915e, type: 3}
       propertyPath: loadCreditScene
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3194691152923561606, guid: 9196f53a02e16af4d8c1f631facd915e, type: 3}
       propertyPath: m_LocalPosition.x
