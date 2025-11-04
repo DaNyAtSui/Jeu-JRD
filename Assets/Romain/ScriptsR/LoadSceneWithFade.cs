@@ -8,16 +8,16 @@ public class LoadSceneWithFade : MonoBehaviour
     [Header("Nom de la scène à charger")]
     public string sceneName;
 
-    [Header("Temps avant le chargement (secondes)")]
-    public float delay = 3f;
+    [Header("Temps d'attente une fois l'écran noir (secondes)")]
+    public float delayAfterBlack = 1f;
 
-    [Header("Durée du fondu (secondes)")]
+    [Header("Durée du fondu vers noir (secondes)")]
     public float fadeDuration = 1f;
 
     [Header("Lancer automatiquement au Start ?")]
     public bool autoStart = false;
 
-    [Header("Référence vers une Image noire (UI)")]
+    [Header("Image UI noire plein écran")]
     public Image fadeImage;
 
     private bool isLoading = false;
@@ -25,28 +25,30 @@ public class LoadSceneWithFade : MonoBehaviour
     void Start()
     {
         if (autoStart)
-            StartCoroutine(LoadSceneAfterDelay());
+            StartCoroutine(FadeThenLoad());
     }
 
     public void StartLoading()
     {
         if (!isLoading)
-            StartCoroutine(LoadSceneAfterDelay());
+            StartCoroutine(FadeThenLoad());
     }
 
-    private IEnumerator LoadSceneAfterDelay()
+    private IEnumerator FadeThenLoad()
     {
         isLoading = true;
 
-        // Attendre avant le fade (si delay > 0)
-        if (delay > 0)
-            yield return new WaitForSeconds(delay);
-
-        // Lancer le fondu noir
+        // 1. On fait le fade vers noir
         if (fadeImage != null)
             yield return StartCoroutine(FadeToBlack());
+        else
+            Debug.LogWarning("LoadSceneWithFade: aucune fadeImage assignée.");
 
-        // Charger la scène
+        // 2. On attend en noir
+        if (delayAfterBlack > 0)
+            yield return new WaitForSeconds(delayAfterBlack);
+
+        // 3. On charge la scène
         SceneManager.LoadScene(sceneName);
     }
 
@@ -54,6 +56,9 @@ public class LoadSceneWithFade : MonoBehaviour
     {
         float elapsed = 0f;
         Color c = fadeImage.color;
+        c.a = 0f;
+        fadeImage.color = c;
+
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
@@ -61,5 +66,9 @@ public class LoadSceneWithFade : MonoBehaviour
             fadeImage.color = c;
             yield return null;
         }
+
+        // On force le full black
+        c.a = 1f;
+        fadeImage.color = c;
     }
 }
