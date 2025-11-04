@@ -278,7 +278,7 @@ public partial class @PlayerINputAct: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a1a91697-92c2-4311-831a-6992f7c0a3f8"",
-                    ""path"": ""<Gamepad>/start"",
+                    ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
