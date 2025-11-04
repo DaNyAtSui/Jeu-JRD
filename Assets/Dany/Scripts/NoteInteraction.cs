@@ -9,45 +9,39 @@ public class NoteInteraction : MonoBehaviour
     public string noteContent = "Une lettre posée sur la table...\n\n\"Ils m’observent encore, même après la mort.\"";
 
     [Header("UI de la lettre (TMP)")]
-    public GameObject letterUIPanel;       // Grande lettre à l'écran
-    public TMP_Text letterTMPText;         // Texte TMP de la lettre
+    public GameObject letterUIPanel;
+    public TMP_Text letterTMPText;
 
     [Header("UI d'interaction")]
-    public GameObject promptUIPanel;       // Panel ou texte en bas de l'écran
-    public TMP_Text promptTMPText;         // Texte type "[E] Lire la lettre"
-    [Tooltip("Texte affiché quand le joueur est proche")]
+    public GameObject promptUIPanel;
+    public TMP_Text promptTMPText;
     public string promptMessage = "[E] Lire la lettre";
 
     [Header("Audio (optionnel)")]
-    public AudioSource paperSound;         // Petit son papier
+    public AudioSource paperSound;
 
     [Header("Input System")]
-    public string interactActionName = "Interact"; // Action du Input System (sinon fallback clavier/manette)
+    public string interactActionName = "Interact";
 
     private bool playerInRange = false;
     private bool isReading = false;
+    private bool hasPlayedSound = false; // ✅ Nouveau : empêche de rejouer le son
 
     private PlayerInput playerInput;
     private InputAction interactAction;
+    private PlayerController playerController;
 
     private void Awake()
     {
-        // Auto-récupère le PlayerInput s'il existe dans la scène
         playerInput = FindFirstObjectByType<PlayerInput>();
+        playerController = FindFirstObjectByType<PlayerController>();
 
         if (playerInput != null)
         {
-            try
-            {
-                interactAction = playerInput.actions[interactActionName];
-            }
-            catch
-            {
-                Debug.LogWarning("⚠️ Aucun InputAction nommé '" + interactActionName + "' trouvé. Utilisation du clavier/manette par défaut.");
-            }
+            try { interactAction = playerInput.actions[interactActionName]; }
+            catch { Debug.LogWarning($"⚠️ Aucun InputAction nommé '{interactActionName}' trouvé."); }
         }
 
-        // Cache le texte d’interaction au démarrage
         if (promptUIPanel != null)
             promptUIPanel.SetActive(false);
     }
@@ -55,9 +49,9 @@ public class NoteInteraction : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+
         playerInRange = true;
 
-        // Affiche le texte d’interaction uniquement si on ne lit pas déjà la lettre
         if (!isReading && promptUIPanel != null)
         {
             promptUIPanel.SetActive(true);
@@ -69,83 +63,85 @@ public class NoteInteraction : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+
         playerInRange = false;
 
-        // Cache le texte quand le joueur quitte la zone
         if (promptUIPanel != null)
             promptUIPanel.SetActive(false);
 
-        // Ferme la lettre s’il la lisait encore
         if (isReading)
-            CloseLetter();
+            CloseLetter(force: true);
     }
 
     private void Update()
     {
-        if (!playerInRange) return;
-
         bool pressed = false;
 
-        // Input System action
         if (interactAction != null)
             pressed = interactAction.WasPressedThisFrame();
-
-        // Fallback clavier / manette
         else
         {
             pressed = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
             if (Gamepad.current != null)
-                pressed |= Gamepad.current.buttonSouth.wasPressedThisFrame; // A / X
+                pressed |= Gamepad.current.buttonSouth.wasPressedThisFrame;
         }
 
-        if (pressed)
-        {
-            if (!isReading) OpenLetter();
-            else CloseLetter();
-        }
+        if (!pressed) return;
+
+        if (playerInRange && !isReading)
+            OpenLetter();
+        else if (isReading)
+            CloseLetter();
     }
 
     void OpenLetter()
     {
         isReading = true;
 
-        // Affiche la lettre
+        // ✅ Désactiver le prompt manuellement
+        if (promptUIPanel != null)
+            promptUIPanel.SetActive(false);
+
         if (letterUIPanel != null)
             letterUIPanel.SetActive(true);
         if (letterTMPText != null)
             letterTMPText.text = noteContent;
 
-        if (paperSound != null)
+        // ✅ Jouer le son une seule fois
+        if (!hasPlayedSound && paperSound != null)
+        {
             paperSound.Play();
+            hasPlayedSound = true;
+        }
 
-        // Cache le texte d’interaction pendant la lecture
-        if (promptUIPanel != null)
-            promptUIPanel.SetActive(false);
-
-        // Met le jeu en pause
-        Time.timeScale = 0f;
+        // ✅ Bloquer le joueur sans geler le temps
+        if (playerController != null)
+            playerController.enabled = false;
     }
 
-    void CloseLetter()
+    void CloseLetter(bool force = false)
     {
         isReading = false;
 
-        // Ferme la lettre
         if (letterUIPanel != null)
             letterUIPanel.SetActive(false);
 
-        if (paperSound != null)
-            paperSound.Play();
+        // ❌ Supprimé : ne rejoue plus le son ici
+        // if (paperSound != null) paperSound.Play();
 
-        // Si le joueur est toujours proche → on réaffiche le texte d’interaction
-        if (playerInRange && promptUIPanel != null)
+        if (playerController != null)
+            playerController.enabled = true;
+
+        // ✅ Ne réaffiche le texte que si le joueur est encore dans le trigger
+        if (!force && playerInRange && promptUIPanel != null)
         {
             promptUIPanel.SetActive(true);
             if (promptTMPText != null)
                 promptTMPText.text = promptMessage;
         }
-
-        // Reprend le temps
-        Time.timeScale = 1f;
+        else if (promptUIPanel != null)
+        {
+            promptUIPanel.SetActive(false);
+        }
     }
 }
