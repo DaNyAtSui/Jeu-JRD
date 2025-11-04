@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RomainSceneFin.unity
     guid: 77cdb13cd049b0244adefea51e9325de
+  - enabled: 1
+    path: Assets/Scenes/Credit.unity
+    guid: e442fb6ecfe68234692f45fb7866b114
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 6a43748e5e969cf4ba1832b5d8fe8e89, type: 3}
   m_UseUCBPForAssetBundles: 0

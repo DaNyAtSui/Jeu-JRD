@@ -431,7 +431,7 @@ MonoBehaviour:
   fadeInDuration: 1.2
   fadeOutDuration: 1.2
   startDelay: 1
-  nextSceneName: MainMenu
+  nextSceneName: 0MainMenu
   endDelay: 1
 --- !u!1 &892294964
 GameObject:
