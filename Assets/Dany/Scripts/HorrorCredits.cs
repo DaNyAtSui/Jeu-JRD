@@ -37,6 +37,10 @@ public class HorrorCredits : MonoBehaviour
     public string nextSceneName = "MainMenu";
     public float endDelay = 1f;
 
+    [Header("💀 Effet final (Exorciste)")]
+    [Tooltip("Référence au script ExorcistBlink pour clignotement final")]
+    public ExorcistBlink exorcistBlink;
+
     private void Start()
     {
         StartCoroutine(PlayCredits());
@@ -77,7 +81,23 @@ public class HorrorCredits : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(endDelay);
+        // Petit délai avant l'effet de fin
+        yield return new WaitForSeconds(endDelay * 0.5f);
+
+        // 💀 Lancement du clignotement de l’exorciste si assigné
+        if (exorcistBlink != null)
+        {
+            exorcistBlink.TriggerBlink();
+            // Attente de la fin du blink avant de continuer
+            yield return new WaitForSeconds(endDelay + 2f);
+        }
+        else
+        {
+            Debug.LogWarning("[HorrorCredits] Aucun ExorcistBlink assigné dans l’inspector.");
+            yield return new WaitForSeconds(endDelay);
+        }
+
+        // 🎬 Transition vers la scène suivante
         if (!string.IsNullOrEmpty(nextSceneName))
             UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneName);
     }
