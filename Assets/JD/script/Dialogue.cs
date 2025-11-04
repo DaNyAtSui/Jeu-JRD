@@ -9,6 +9,7 @@ public enum Speaker
     PlayerCinematic,
     PlayerTwo,
     Entity,
+    EntityCinematic,
     Narrator
 }
 

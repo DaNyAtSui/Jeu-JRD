@@ -17,7 +17,7 @@ MonoBehaviour:
     sentence: S'il vous plait!!
   - speaker: 2
     sentence: j'ai besoin d'aide!!
-  - speaker: 4
+  - speaker: 5
     sentence: ...entrez...
-  - speaker: 4
+  - speaker: 5
     sentence: ...je suis ici...

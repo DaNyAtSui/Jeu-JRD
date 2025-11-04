@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
         if (DialogueManager.IsPlayerFrozen)
         {
             if (animator != null) animator.SetBool("IsWalking", false);
+            moveInput = Vector2.zero; 
+            HandleFootsteps(false);
             return; 
         }
         moveInput = input.Player.Move.ReadValue<Vector2>();
