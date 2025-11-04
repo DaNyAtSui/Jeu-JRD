@@ -144,17 +144,6 @@ public partial class @PlayerINputAct: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""d7f4c5d1-ec64-4ab2-9357-df5db1001e90"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""2D Vector"",
                     ""id"": ""3172135e-7ac9-4204-9314-b164574f72cb"",
                     ""path"": ""2DVector"",
@@ -290,17 +279,6 @@ public partial class @PlayerINputAct: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""a1a91697-92c2-4311-831a-6992f7c0a3f8"",
                     ""path"": ""<Gamepad>/select"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Cheatcode"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""db0cc44a-8a08-4fb1-85fc-1c907fa8730b"",
-                    ""path"": ""<Keyboard>/insert"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
