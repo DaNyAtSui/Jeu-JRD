@@ -12,7 +12,7 @@ public class DialogueTrigger : MonoBehaviour
 
     [Header("Options")]
     [Tooltip("Faut-il envoyer la position de cet objet au Narrateur ? Décochez pour l'intro ou les dialogues 'full screen'.")]
-    [SerializeField] private bool sendContextTransform = true; // Par défaut, on envoie le contexte
+    [SerializeField] private bool sendContextTransform = true; 
 
     
     // C'est la fonction que vos événements appellent
@@ -21,7 +21,10 @@ public class DialogueTrigger : MonoBehaviour
         // Si le dialogueManager n'est pas assigné, on essaie de le trouver
         if (dialogueManager == null)
         {
-            dialogueManager = FindObjectOfType<DialogueManager>();
+            // --- C'EST LA CORRECTION ---
+            // On utilise la nouvelle fonction, plus rapide
+            dialogueManager = FindFirstObjectByType<DialogueManager>();
+            // ---------------------------
         }
         
         // Sécurités
@@ -36,16 +39,13 @@ public class DialogueTrigger : MonoBehaviour
             return;
         }
 
-        // --- C'EST LA CORRECTION ---
+        // On appelle StartDialogue en fonction de la case à cocher
         if (sendContextTransform)
         {
-            // Comportement normal : on envoie la position de cet objet
             dialogueManager.StartDialogue(dialogue, this.transform);
         }
         else
         {
-            // Comportement "Intro" : on envoie 'null' comme position
-            // Le DialogueManager utilisera donc sa position par défaut
             dialogueManager.StartDialogue(dialogue, null);
         }
     }
