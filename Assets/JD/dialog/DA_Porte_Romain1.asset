@@ -10,14 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80a6478f3fc6c704ba3efb823fb60693, type: 3}
-  m_Name: DA_InfLoop_Conv2
+  m_Name: DA_Porte_Romain1
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - speaker: 1
-    sentence: "Je suis encore \xE0 l'entr\xE9e."
-  - speaker: 1
-    sentence: "Il se passe quelque chose d'\xE9trange."
-  - speaker: 1
-    sentence: il faut que je trouve une autre solution.
-  - speaker: 6
-    sentence: Trouver des indices pour sortir.
+  - speaker: 4
+    sentence: Par ici...
