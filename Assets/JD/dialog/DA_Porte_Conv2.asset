@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 1
-    sentence: "ha il est pas l\xE0 non plus"
+    sentence: "Ah... il n'est pas l\xE0 non plus."
   - speaker: 0
-    sentence: "euh\u2026"
+    sentence: "Euh\u2026"
   - speaker: 0
-    sentence: "vous \xEAtes o\xF9?"
+    sentence: "Vous \xEAtes o\xF9 ?"
   - speaker: 5
     sentence: "...je suis ici\u2026"
   - speaker: 0
     sentence: ok...
   - speaker: 1
-    sentence: "je ne suis pas plus avanc\xE9 l\xE0"
+    sentence: "Je ne suis pas plus avanc\xE9 l\xE0..."
   - speaker: 1
-    sentence: Bon essayons la prochaine salle
+    sentence: Bon, essayons la prochaine salle.
   - speaker: 6
-    sentence: essayer une autre porte
+    sentence: Essayer une autre porte.

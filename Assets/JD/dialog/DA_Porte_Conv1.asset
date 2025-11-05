@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 1
-    sentence: ha il est pas dans cette salle
+    sentence: Ah... il n'est pas dans cette salle.
   - speaker: 6
-    sentence: essayer une autre porte
+    sentence: Essayer une autre porte

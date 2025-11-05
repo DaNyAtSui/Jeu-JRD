@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 1
-    sentence: "je suis encore \xE0 l'entr\xE9e"
+    sentence: "je suis encore \xE0 l'entr\xE9e."
   - speaker: 1
-    sentence: "il se passe quelque chose d'\xE9trange"
+    sentence: "Il se passe quelque chose d'\xE9trange."
   - speaker: 1
-    sentence: il faut que je trouve une autre solution
+    sentence: il faut que je trouve une autre solution.
   - speaker: 6
-    sentence: trouvez des indices pour sortir
+    sentence: Trouver des indices pour sortir.
