@@ -413,8 +413,8 @@ MonoBehaviour:
       Character Generator'
     imageSprite: {fileID: 0}
     displayDuration: 4
-  - textLine: "Un grand MERCI \xE0 \n\nGurvan NATIVEL\n\nPour son accompagnement
-      et sa passion durant la Game Jam"
+  - textLine: "Un grand MERCI \xE0 \n\nGurvan NATIVEL\npour l'organisation de la
+      GAME JAM"
     imageSprite: {fileID: 0}
     displayDuration: 4
   - textLine: "Merci \xE0 Simplon Outre-Mer"
