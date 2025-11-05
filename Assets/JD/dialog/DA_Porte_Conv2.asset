@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a6478f3fc6c704ba3efb823fb60693, type: 3}
+  m_Name: DA_Porte_Conv2
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogue
+  lines:
+  - speaker: 1
+    sentence: "ha il est pas l\xE0 non plus"
+  - speaker: 0
+    sentence: "euh\u2026"
+  - speaker: 0
+    sentence: "vous \xEAtes o\xF9?"
+  - speaker: 5
+    sentence: "...je suis ici\u2026"
+  - speaker: 0
+    sentence: ok...
+  - speaker: 1
+    sentence: "je ne suis pas plus avanc\xE9 l\xE0"
+  - speaker: 1
+    sentence: Bon essayons la prochaine salle
+  - speaker: 6
+    sentence: essayer une autre porte

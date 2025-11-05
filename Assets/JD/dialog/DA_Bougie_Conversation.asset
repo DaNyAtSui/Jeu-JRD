@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a6478f3fc6c704ba3efb823fb60693, type: 3}
+  m_Name: DA_Bougie_Conversation
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogue
+  lines:
+  - speaker: 1
+    sentence: Maintenant je vois mieux
+  - speaker: 1
+    sentence: tiens, il y a plusieurs portes
+  - speaker: 1
+    sentence: "il doit \xEAtre dans une des salles"
+  - speaker: 6
+    sentence: ouvrir une porte

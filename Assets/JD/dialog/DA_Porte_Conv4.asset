@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a6478f3fc6c704ba3efb823fb60693, type: 3}
+  m_Name: DA_Porte_Conv4
+  m_EditorClassIdentifier: Assembly-CSharp::Dialogue
+  lines:
+  - speaker: 1
+    sentence: "Pas l\xE0 non plus"
+  - speaker: 1
+    sentence: il se moque de moi
+  - speaker: 0
+    sentence: Excusez mon impatience
+  - speaker: 0
+    sentence: mais...
+  - speaker: 0
+    sentence: "o\xF9 \xEAtes-vous?"
+  - speaker: 5
+    sentence: "...je suis ici\u2026"
+  - speaker: 1
+    sentence: '!!Quoi!?'
+  - speaker: 1
+    sentence: "il est dans la premi\xE8re salle?"
+  - speaker: 1
+    sentence: "Non, l\xE0 c'est trop bizarre"
+  - speaker: 1
+    sentence: partons vite!
+  - speaker: 0
+    sentence: "Bon, au final je retourne \xE0 la voiture"
+  - speaker: 0
+    sentence: "je vais trouver un moyen de r\xE9parer ma panne"
+  - speaker: 0
+    sentence: "merci quand m\xEAme..."
+  - speaker: 5
+    sentence: "...je suis ici\u2026"
+  - speaker: 1
+    sentence: "Oui, bah restes o\xF9 t'es"
+  - speaker: 1
+    sentence: moi je vais aller voir ailleurs si j'y suis!
+  - speaker: 1
+    sentence: sortir par la porte de secour

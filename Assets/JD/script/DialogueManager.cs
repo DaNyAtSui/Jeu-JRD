@@ -125,143 +125,169 @@ public class DialogueManager : MonoBehaviour
         DialogueLine line = sentences.Dequeue();
         typingCoroutine = StartCoroutine(TypeSentence(line));
     }
+private IEnumerator TypeSentence(DialogueLine line)
+{
+    // 1. Préparer les variables
+    TextMeshProUGUI textComponent = null;
+    GameObject dialogueBox = null;
+    Button continueButton = null;
 
-    private IEnumerator TypeSentence(DialogueLine line)
+    // 2. Cacher toutes les boîtes
+    playerDialogueBox.SetActive(false);
+    entityDialogueBox.SetActive(false);
+    playerThoughtBox.SetActive(false);
+    playerTwoDialogueBox.SetActive(false);
+    narratorBox.SetActive(false);
+
+    // 3. Switch unique pour la logique de pause ET la logique d'UI
+    switch (line.speaker)
     {
-        // 1. Préparer les variables
-        TextMeshProUGUI textComponent = null;
-        GameObject dialogueBox = null;
-        Button continueButton = null;
+        // ... (tous vos 'case' pour Player, PlayerThought, Entity, etc. restent identiques) ...
+        // (Copiez-collez votre switch existant ici)
+        case Speaker.Player:
+            IsPlayerFrozen = true;
+            textComponent = playerDialogueText;
+            dialogueBox = playerDialogueBox;
+            continueButton = playerContinueButton;
+            break;
 
-        // 2. Cacher toutes les boîtes
-        playerDialogueBox.SetActive(false);
-        entityDialogueBox.SetActive(false);
-        playerThoughtBox.SetActive(false);
-        playerTwoDialogueBox.SetActive(false);
-        narratorBox.SetActive(false);
+        case Speaker.PlayerThought:
+            IsPlayerFrozen = false;
+            textComponent = playerThoughtText;
+            dialogueBox = playerThoughtBox;
+            continueButton = playerThoughtContinueButton;
+            break;
 
-        // 3. Switch unique pour la logique de pause ET la logique d'UI
-        switch (line.speaker)
+        case Speaker.PlayerCinematic:
+            IsPlayerFrozen = true;
+            textComponent = playerDialogueText;
+            dialogueBox = playerDialogueBox;
+            continueButton = null;
+            break;
+
+        case Speaker.PlayerTwo:
+            IsPlayerFrozen = true;
+            textComponent = playerTwoDialogueText;
+            dialogueBox = playerTwoDialogueBox;
+            continueButton = playerContinueButton;
+            break;
+
+        case Speaker.Entity:
+            IsPlayerFrozen = true;
+            textComponent = entityDialogueText;
+            dialogueBox = entityDialogueBox;
+            continueButton = entityContinueButton; 
+            break;
+            
+        case Speaker.EntityCinematic: // N'oubliez pas ce cas
+            IsPlayerFrozen = true;
+            textComponent = entityDialogueText;
+            dialogueBox = entityDialogueBox;
+            continueButton = null;
+            break;
+
+        case Speaker.Narrator:
+            IsPlayerFrozen = false;
+            textComponent = narratorText;
+            dialogueBox = narratorBox;
+            continueButton = narratorContinueButton;
+            break;
+    }
+
+    // 4. Activer la bonne boîte
+    if(dialogueBox != null)
+        dialogueBox.SetActive(true);
+
+    // 5. LOGIQUE DE POSITIONNEMENT (INITIALE)
+    // On place les bulles FIXES (Cinematic, Narrator) UNE SEULE FOIS
+    if (line.speaker == Speaker.Narrator)
+    {
+        if (currentContextTransform != null) // Suit un objet
         {
-            case Speaker.Player:
-                IsPlayerFrozen = true;
-                textComponent = playerDialogueText;
-                dialogueBox = playerDialogueBox;
-                continueButton = playerContinueButton;
-                break;
-
-            case Speaker.PlayerThought:
-                IsPlayerFrozen = false; // Le joueur peut bouger
-                textComponent = playerThoughtText;
-                dialogueBox = playerThoughtBox;
-                continueButton = playerThoughtContinueButton;
-                break;
-
-            case Speaker.PlayerCinematic:
-                IsPlayerFrozen = true;
-                textComponent = playerDialogueText;
-                dialogueBox = playerDialogueBox;
-                continueButton = null; // Pas de bouton
-                break;
-
-            case Speaker.PlayerTwo:
-                IsPlayerFrozen = true;
-                textComponent = playerTwoDialogueText;
-                dialogueBox = playerTwoDialogueBox;
-                continueButton = playerTwoContinueButton;
-                break;
-
-            case Speaker.Entity:
-                IsPlayerFrozen = true;
-                textComponent = entityDialogueText;
-                dialogueBox = entityDialogueBox;
-                continueButton = entityContinueButton;
-                break;
-                
-            case Speaker.EntityCinematic:
-                IsPlayerFrozen = true;                // Fige le joueur
-                textComponent = entityDialogueText;   // Réutilise la bulle de l'Entity
-                dialogueBox = entityDialogueBox;      // Réutilise la bulle de l'Entity
-                continueButton = null;                // Pas de bouton (mode timer)
-                break;
-
-            case Speaker.Narrator:
-                IsPlayerFrozen = false; // Le joueur peut bouger
-                textComponent = narratorText;
-                dialogueBox = narratorBox;
-                continueButton = narratorContinueButton;
-                break;
+            Vector2 screenPoint = mainCamera.WorldToScreenPoint(currentContextTransform.position);
+            dialogueBox.transform.position = screenPoint;
         }
+        else // Position par défaut (en bas au centre)
+        {
+            dialogueBox.transform.position = anchorNarratorDefault.position;
+        }
+    }
+    else if (line.speaker == Speaker.PlayerCinematic)
+    {
+        dialogueBox.transform.position = anchorCinematicBL.position;
+    }
+    else if (line.speaker == Speaker.EntityCinematic)
+    {
+        dialogueBox.transform.position = anchorCinematicTR.position;
+    }
+    else if (line.speaker == Speaker.PlayerTwo)
+    {
+        dialogueBox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+    }
+    // Les bulles (Player, Entity, Thought) seront positionnées DANS la boucle ci-dessous
 
-        // 4. Activer la bonne boîte
-        if(dialogueBox != null)
-            dialogueBox.SetActive(true);
-
-        // 5. LOGIQUE DE POSITIONNEMENT (AMÉLIORÉE)
+    // 6. Effet de frappe
+    textComponent.text = "";
+    foreach (char letter in line.sentence.ToCharArray())
+    {
+        // --- MISE À JOUR CONTINUE (LA CORRECTION) ---
+        // Pour les bulles qui suivent, on met à jour leur position à chaque "lettre"
         if (line.speaker == Speaker.Player || line.speaker == Speaker.PlayerThought)
         {
-            // Suivre le joueur (vous pouvez ajuster "bubbleOffset" dans l'Inspecteur)
             Vector2 screenPoint = mainCamera.WorldToScreenPoint(playerTransform.position);
             dialogueBox.transform.position = screenPoint + bubbleOffset;
         }
         else if (line.speaker == Speaker.Entity)
         {
-            // Suivre l'entité (vous pouvez ajuster "bubbleOffset" dans l'Inspecteur)
             Vector2 screenPoint = mainCamera.WorldToScreenPoint(entityTransform.position);
             dialogueBox.transform.position = screenPoint + bubbleOffset;
         }
-        else if (line.speaker == Speaker.Narrator)
-        {
-            // Si on a un objet (contexte), on le suit.
-            if (currentContextTransform != null)
-            {
-                Vector2 screenPoint = mainCamera.WorldToScreenPoint(currentContextTransform.position);
-                dialogueBox.transform.position = screenPoint;
-            }
-            else // Sinon, on utilise la position par défaut (en bas au centre)
-            {
-                dialogueBox.transform.position = anchorNarratorDefault.position;
-            }
-        }
-        else if (line.speaker == Speaker.PlayerCinematic)
-        {
-            // Se coller à l'ancre en bas à gauche
-            dialogueBox.transform.position = anchorCinematicBL.position;
-        }
-        else if (line.speaker == Speaker.EntityCinematic)
-        {
-            // Se coller à l'ancre en haut à droite
-            dialogueBox.transform.position = anchorCinematicTR.position;
-        }
-        else if (line.speaker == Speaker.PlayerTwo)
-        {
-            // PlayerTwo reste au centre par défaut
-            dialogueBox.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        }
+        // --- FIN DE LA CORRECTION ---
 
-        // 6. Effet de frappe
-        textComponent.text = "";
-        foreach (char letter in line.sentence.ToCharArray())
-        {
-            textComponent.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
-        }
+        textComponent.text += letter;
+        yield return new WaitForSeconds(typingSpeed);
+    }
 
-        // 7. Gérer la fin de la phrase (Bouton vs Timer)
-        if (line.speaker == Speaker.Player || 
-            line.speaker == Speaker.PlayerThought ||
-            line.speaker == Speaker.Narrator ||
-            line.speaker == Speaker.PlayerTwo)
+    // 7. Gérer la fin de la phrase
+
+    // On détermine si la bulle doit continuer à suivre PENDANT que le joueur lit
+    bool needsPostTypingFollow = (line.speaker == Speaker.Player || 
+                                  line.speaker == Speaker.PlayerThought || 
+                                  line.speaker == Speaker.Entity);
+
+    // A. Cas avec un bouton "Continuer"
+    if (line.speaker == Speaker.Player || 
+        line.speaker == Speaker.PlayerThought ||
+        line.speaker == Speaker.Narrator ||
+        line.speaker == Speaker.PlayerTwo)
+    {
+        if (continueButton != null)
+            continueButton.gameObject.SetActive(true);
+        
+        // --- BOUCLE DE SUIVI POST-FRAPPE ---
+        // Tant qu'on n'a pas cliqué, on continue de mettre la bulle à jour
+        while (needsPostTypingFollow)
         {
-            if (continueButton != null)
-                continueButton.gameObject.SetActive(true);
-        }
-        else if (line.speaker == Speaker.Entity ||
-                 line.speaker == Speaker.PlayerCinematic ||
-                 line.speaker == Speaker.EntityCinematic)
-        {
-            yield return new WaitForSeconds(entityDisplayTime);
-            DisplayNextSentence();
+            if (line.speaker == Speaker.Player || line.speaker == Speaker.PlayerThought)
+            {
+                Vector2 screenPoint = mainCamera.WorldToScreenPoint(playerTransform.position);
+                dialogueBox.transform.position = screenPoint + bubbleOffset;
+            }
+            else if (line.speaker == Speaker.Entity)
+            {
+                Vector2 screenPoint = mainCamera.WorldToScreenPoint(entityTransform.position);
+                dialogueBox.transform.position = screenPoint + bubbleOffset;
+            }
+            yield return null; // Attendre la prochaine frame
         }
     }
+    // B. Cas avec un timer
+    else if (line.speaker == Speaker.Entity ||
+             line.speaker == Speaker.PlayerCinematic ||
+             line.speaker == Speaker.EntityCinematic)
+    {
+        yield return new WaitForSeconds(entityDisplayTime);
+        DisplayNextSentence();
+    }
+}
 }

@@ -10,6 +10,10 @@ public class DialogueTrigger : MonoBehaviour
     [Tooltip("L'asset de dialogue ('DVD') à charger")]
     [SerializeField] private Dialogue dialogue;
 
+    [Header("Options")]
+    [Tooltip("Faut-il envoyer la position de cet objet au Narrateur ? Décochez pour l'intro ou les dialogues 'full screen'.")]
+    [SerializeField] private bool sendContextTransform = true; // Par défaut, on envoie le contexte
+
     
     // C'est la fonction que vos événements appellent
     public void TriggerDialogue()
@@ -32,10 +36,17 @@ public class DialogueTrigger : MonoBehaviour
             return;
         }
 
-        // --- CHANGEMENT ICI ---
-        // On appelle StartDialogue en lui passant DEUX choses :
-        // 1. Le dialogue à jouer (dialogue)
-        // 2. Le "contexte", c'est-à-dire la position de cet objet (this.transform)
-        dialogueManager.StartDialogue(dialogue, this.transform);
+        // --- C'EST LA CORRECTION ---
+        if (sendContextTransform)
+        {
+            // Comportement normal : on envoie la position de cet objet
+            dialogueManager.StartDialogue(dialogue, this.transform);
+        }
+        else
+        {
+            // Comportement "Intro" : on envoie 'null' comme position
+            // Le DialogueManager utilisera donc sa position par défaut
+            dialogueManager.StartDialogue(dialogue, null);
+        }
     }
 }

@@ -10,6 +10,8 @@ public class CandleTrigger : MonoBehaviour
     public AudioSource extinguishSound;     // optionnel, petit son de bougie
 
     private bool triggered = false;
+    [Header("Dialogue")]
+    [SerializeField] private DialogueTrigger dialogueARecuperer;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -29,6 +31,11 @@ public class CandleTrigger : MonoBehaviour
         // 3️⃣ activer la lumière du joueur
         if (playerLight != null)
             playerLight.enabled = true;
+
+        if (dialogueARecuperer != null)
+        {
+            dialogueARecuperer.TriggerDialogue();
+        }
 
         // 4️⃣ petit son optionnel
         if (extinguishSound != null)
