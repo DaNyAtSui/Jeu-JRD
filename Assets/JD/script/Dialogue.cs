@@ -11,6 +11,7 @@ public enum Speaker
     Entity,
     EntityCinematic,
     Narrator
+
 }
 
 [System.Serializable]
