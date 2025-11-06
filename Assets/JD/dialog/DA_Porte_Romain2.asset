@@ -10,18 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80a6478f3fc6c704ba3efb823fb60693, type: 3}
-  m_Name: DA_InfLoop_Conv1
+  m_Name: DA_Porte_Romain2
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 6
-    sentence: Hein !!! Mais que !?
-  - speaker: 6
-    sentence: "Pourquoi je suis de nouveau \xE0 l'entr\xE9e ?"
-  - speaker: 6
-    sentence: Pourtant, j'ai pris la porte de sortie !
-  - speaker: 6
-    sentence: Je ne comprends pas pourquoi je suis encore ici.
-  - speaker: 6
-    sentence: il faut que je sorte.
-  - speaker: 6
-    sentence: Trouver une sortie.
+    sentence: Par ici...

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DA_InfLoop_Conv2
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
-  - speaker: 1
+  - speaker: 6
     sentence: "Je suis encore \xE0 l'entr\xE9e."
-  - speaker: 1
+  - speaker: 6
     sentence: "Il se passe quelque chose d'\xE9trange."
-  - speaker: 1
+  - speaker: 6
     sentence: il faut que je trouve une autre solution.
   - speaker: 6
     sentence: Trouver des indices pour sortir.
