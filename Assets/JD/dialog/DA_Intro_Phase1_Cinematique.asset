@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 2
-    sentence: S'il vous plait!!
+    sentence: S'il vous plait !!
   - speaker: 2
-    sentence: j'ai besoin d'aide!!
+    sentence: J'ai besoin d'aide !!
   - speaker: 5
     sentence: ...entrez...
   - speaker: 5

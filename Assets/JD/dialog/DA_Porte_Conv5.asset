@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 1
-    sentence: "ha il est pas l\xE0"
+    sentence: "Ah... il n'est pas l\xE0."

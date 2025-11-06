@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 1
-    sentence: Hein!!!MAis que!?
+    sentence: Hein !!! Mais que !?
   - speaker: 1
-    sentence: "Pourquoi je suis de nouveau \xE0 l'entr\xE9e?"
+    sentence: "Pourquoi je suis de nouveau \xE0 l'entr\xE9e ?"
   - speaker: 1
-    sentence: pourtant, J'ai pris la porte de sortie
+    sentence: Pourtant, j'ai pris la porte de sortie !
   - speaker: 1
-    sentence: Je ne comprends pas pourquoi je suis encore ici
+    sentence: Je ne comprends pas pourquoi je suis encore ici.
   - speaker: 1
-    sentence: il faut que je sorte
+    sentence: il faut que je sorte.
   - speaker: 6
-    sentence: trouver une sortie
+    sentence: Trouver une sortie.

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 1
-    sentence: Maintenant je vois mieux
+    sentence: Maintenant je vois mieux.
   - speaker: 1
-    sentence: tiens, il y a plusieurs portes
+    sentence: Tiens, il y a plusieurs portes.
   - speaker: 1
-    sentence: "il doit \xEAtre dans une des salles"
+    sentence: "Il doit \xEAtre dans une des salles."
   - speaker: 6
-    sentence: ouvrir une porte
+    sentence: Ouvrir une porte.

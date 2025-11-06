@@ -16,34 +16,34 @@ MonoBehaviour:
   - speaker: 1
     sentence: "Pas l\xE0 non plus"
   - speaker: 1
-    sentence: il se moque de moi
+    sentence: Il se moque de moi.
   - speaker: 0
-    sentence: Excusez mon impatience
+    sentence: Excusez mon impatience.
   - speaker: 0
-    sentence: mais...
+    sentence: Mais...
   - speaker: 0
-    sentence: "o\xF9 \xEAtes-vous?"
+    sentence: "O\xF9 \xEAtes-vous ?"
   - speaker: 5
     sentence: "...je suis ici\u2026"
   - speaker: 1
-    sentence: '!!Quoi!?'
+    sentence: '!! Quoi !?'
   - speaker: 1
-    sentence: "il est dans la premi\xE8re salle?"
+    sentence: "Il est dans la premi\xE8re salle?"
   - speaker: 1
-    sentence: "Non, l\xE0 c'est trop bizarre"
+    sentence: "Non, l\xE0 c'est trop bizarre."
   - speaker: 1
-    sentence: partons vite!
+    sentence: Partons vite!
   - speaker: 0
     sentence: "Bon, au final je retourne \xE0 la voiture"
   - speaker: 0
-    sentence: "je vais trouver un moyen de r\xE9parer ma panne"
+    sentence: "Je vais trouver un moyen de r\xE9parer ma panne"
   - speaker: 0
-    sentence: "merci quand m\xEAme..."
+    sentence: "Merci quand m\xEAme..."
   - speaker: 5
     sentence: "...je suis ici\u2026"
   - speaker: 1
     sentence: "Oui, bah restes o\xF9 t'es"
   - speaker: 1
-    sentence: moi je vais aller voir ailleurs si j'y suis!
+    sentence: Moi je vais aller voir ailleurs si j'y suis !
   - speaker: 1
-    sentence: sortir par la porte de secour
+    sentence: Sortir par la porte de secours.

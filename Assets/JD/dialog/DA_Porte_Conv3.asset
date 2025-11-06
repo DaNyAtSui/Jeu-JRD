@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dialogue
   lines:
   - speaker: 1
-    sentence: "encore ferm\xE9"
+    sentence: "Encore ferm\xE9."
   - speaker: 1
-    sentence: "je m'en serai dout\xE9"
+    sentence: "Je m'en serai dout\xE9."
   - speaker: 1
-    sentence: "Je commence \xE0 perdre patience"
+    sentence: "Je commence \xE0 perdre patience..."
   - speaker: 1
-    sentence: voyons la prochaine salle
+    sentence: Voyons la prochaine salle.
   - speaker: 6
-    sentence: essayer une autre porte
+    sentence: Essayer une autre porte
